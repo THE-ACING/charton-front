@@ -1,0 +1,15 @@
+name: Code analysys
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  conventional_commit:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    steps:
+      -
+        uses: webiny/action-conventional-commits@8bc41ff4e7d423d56fa4905f6ff79209a78776c7
