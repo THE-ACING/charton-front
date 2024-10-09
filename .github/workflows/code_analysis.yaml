@@ -32,3 +32,8 @@ jobs:
       -
         name: Run Jest tests
         run: npm test
+      -
+        name: Upload coverage
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
+        env:
+            CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
