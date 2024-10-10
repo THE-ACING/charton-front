@@ -35,6 +35,7 @@ const config: Config = {
     '!<rootDir>/out/**',
     '!<rootDir>/.next/**',
     '!<rootDir>/*.config.js',
+    '!<rootDir>/*.config.ts',
     '!<rootDir>/coverage/**',
   ],
 
