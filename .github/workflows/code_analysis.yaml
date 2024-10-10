@@ -37,3 +37,22 @@ jobs:
         run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
         env:
             CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+  build:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@c47758b77c9736f4b2ef4073d4d51994fabfe349
+      -
+        name: Build
+        uses: docker/build-push-action@4f58ea79222b3b9dc2c8bbdd6debcef730109a75
+        with:
+          push: false
+          tags: ${{ vars.DOCKER_NAMESPACE }}/${{ github.event.repository.name }}
+          platforms: linux/amd64,linux/arm64
+          cache-from: type=gha,scope=${{ github.ref_name }}-image
+          cache-to: type=gha,mode=max,scope=${{ github.ref_name }}-image
