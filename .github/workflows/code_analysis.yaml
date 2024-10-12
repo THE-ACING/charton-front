@@ -132,7 +132,7 @@ jobs:
         with:
           category: "/language:${{matrix.language}}"
   security:
-    name: Snyk scan
+    name: Snyk Scan
     runs-on: ubuntu-latest
     needs: [build]
     steps:
