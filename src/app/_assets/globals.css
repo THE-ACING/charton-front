@@ -149,6 +149,10 @@ body {
   background: var(--tg-theme-button-color);
 }
 
+.button-border{
+  border-color: var(--tg-theme-button-color);
+}
+
 .text-color{
   color: var(--tg-theme-text-color);
 }

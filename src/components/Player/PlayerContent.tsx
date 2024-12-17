@@ -170,7 +170,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   return (
     <>
       <div
-        className={`z-[3] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all ` : `${lp?.platform === "ios" ? "bottom-[100px]" : "bottom-[88px]"} right-2 left-2`}`}
+        className={`z-[3] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all ` : `${lp?.platform === "ios" ? "bottom-[100px]" : "bottom-[91px]"} right-2 left-2`}`}
       >
         <div className={`overflow-hidden w-full`}>
           <div
@@ -385,13 +385,13 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
                     >
                       <div
                         onClick={togglePlayPause}
-                        className={`cursor-pointer flex items-center justify-center shadow-xl transition rounded-3xl p-4  ${!isPlaying ? "button-color" : "section-separator-color"}`}
+                        className={`cursor-pointer flex items-center justify-center shadow-xl transition rounded-3xl p-4 border ${!isPlaying ? "button-border button-color" : "bg-transparent section-separator-color-border"}`}
                       >
                         <Icon size={24} className={"text-color"} />
                       </div>
                       <div
                         onClick={onPlayNext}
-                        className={`shadow-xl flex items-center justify-center transition rounded-3xl cursor-pointer p-5 section-separator-color`}
+                        className={`shadow-xl flex items-center justify-center transition rounded-3xl cursor-pointer p-5 border section-separator-color-border`}
                       >
                         <IoPlaySkipForward size={16} className={"text-color"} />
                       </div>

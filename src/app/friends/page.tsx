@@ -51,7 +51,7 @@ const Friends = () => {
 
         <div
           className={
-            "cursor-pointer relative w-full p-3 section-bg-color subtitle-text-color rounded-xl text-[14px] truncate group overflow-hidden transition mb-1"
+            " cursor-pointer relative w-full p-3 section-bg-color subtitle-text-color rounded-xl text-[14px]  group overflow-hidden transition mb-1 truncate"
           }
           onClick={copylink}
         >

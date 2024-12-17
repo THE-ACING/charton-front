@@ -9,17 +9,20 @@ import { Button, Modal } from "@telegram-apps/telegram-ui";
 import { ModalHeader } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import { useState } from "react";
 import Input from "@/components/Input/Input";
+import React from "react";
 
 const Playlists = () => {
   const [playlistName, setPlaylistName] = useState("");
+  const [playlistLink, setPlaylistLink] = useState("");
 
   const handleClick = () => {
     console.log("click");
   };
 
   const handleCreatePlaylist = () => {
-    console.log("sent: ", playlistName);
+    console.log("sent: ", playlistName, playlistLink);
     setPlaylistName("");
+    setPlaylistLink("");
   };
 
   return (
@@ -46,8 +49,9 @@ const Playlists = () => {
         </div>
         <div className={"flex flex-col gap-y-1"}>
           <Modal
-            className={`px-5 flex justify-center pb-6`}
-            header={<ModalHeader>Create Playlist</ModalHeader>}
+            className={`px-5 flex justify-center pb-6 z-[999]`}
+            header={<ModalHeader></ModalHeader>}
+            snapPoints={[1]}
             trigger={
               <Button
                 onClick={handleClick}
@@ -59,23 +63,42 @@ const Playlists = () => {
               </Button>
             }
           >
-            <Input
-              className={"border-2 section-separator-color-border mb-1"}
-              placeholder="Let's call it..."
-              value={playlistName}
-              onChange={(e) => setPlaylistName(e.target.value)}
-            />
-            <Modal.Close>
-              <Button
-                onClick={handleCreatePlaylist}
-                mode="filled"
-                size="l"
-                stretched
-                disabled={playlistName.length <= 3 && true}
-              >
-                Create
-              </Button>
-            </Modal.Close>
+            <React.Fragment key=".0">
+              <div className={"h-[80vh]"}>
+                <h2 className={"text-[20px] font-semibold text-center pb-4"}>Create Playlist</h2>
+                <h2 className={"mb-1 font-medium text-[18px]"}>Title</h2>
+                <Input
+                  className={
+                    "border-2 section-separator-color-border mb-1 truncate"
+                  }
+                  placeholder="Let's call it..."
+                  value={playlistName}
+                  onChange={(e) => setPlaylistName(e.target.value)}
+                />
+
+                <h2 className={"mt-5 font-medium text-[18px] leading-5"}>Connect an existing playlist</h2>
+                <p className={"text-[14px] subtitle-text-color mb-2"}>(optional)</p>
+                <Input
+                    className={"border-2 section-separator-color-border mb-2 truncate"}
+                    placeholder="Link to"
+                    value={playlistLink}
+                    onChange={(e) => setPlaylistLink(e.target.value)}
+                />
+                <Modal.Close>
+                  <Button
+                    onClick={handleCreatePlaylist}
+                    mode="filled"
+                    size="l"
+                    stretched
+                    disabled={playlistName.length <= 3 && true}
+                  >
+                    Create
+                  </Button>
+                </Modal.Close>
+              </div>
+              <div></div>
+              <div></div>
+            </React.Fragment>
           </Modal>
 
           <Link

@@ -18,13 +18,13 @@ const NavigationBar = () => {
     >
       <Link
         href={"/search"}
-        className={`navigation-button flex p-6 rounded-3xl  justify-center items-center transition-all shadow-md ${pathname === "/search" ? "button-color" : "section-separator-color"}`}
+        className={`navigation-button flex p-6 rounded-3xl  justify-center items-center transition-all shadow-md border ${pathname === "/search" ? "button-color button-border" : "section-separator-color-border"}`}
       >
         <IoSearch className={"text-color"} size={20} />
       </Link>
       <Link
         href={"/friends"}
-        className={`navigation-button flex p-6 rounded-3xl  justify-center items-center transition-all shadow-md ${pathname === "/friends" ? "button-color" : "section-separator-color"}`}
+        className={`navigation-button flex p-6 rounded-3xl  justify-center items-center transition-all shadow-md border ${pathname === "/friends" ? "button-color button-border" : "section-separator-color-border"}`}
       >
         <IoPersonAdd className={"text-color"} size={20} />
       </Link>
@@ -35,13 +35,13 @@ const NavigationBar = () => {
 
       <Link
         href={"/playlists"}
-        className={`navigation-button flex p-6 rounded-3xl section-separator-color justify-center items-center transition-all shadow-md ${pathname === "/playlists" ? "button-color" : "section-separator-color"}`}
+        className={`navigation-button flex p-6 rounded-3xl section-separator-color justify-center items-center transition-all shadow-md border ${pathname === "/playlists" ? "button-color button-border" : "section-separator-color-border"}`}
       >
         <PiPlaylistBold className={"text-color"} size={20} />
       </Link>
       <Link
         href={"/me"}
-        className={`navigation-button flex p-6 rounded-3xl section-separator-color justify-center items-center transition-all shadow-md ${pathname === "/me" ? "button-color" : "section-separator-color"}`}
+        className={`navigation-button flex p-6 rounded-3xl section-separator-color justify-center items-center transition-all shadow-md border  ${pathname === "/me" ? "button-color button-border" : "section-separator-color-border"}`}
       >
         <IoPerson className={"text-color"} size={20} />
       </Link>
