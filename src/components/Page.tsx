@@ -43,19 +43,19 @@ export function Page({
     document.body.addEventListener("gesturestart", function (e) {
       e.preventDefault();
       // special hack to prevent zoom-to-tabs gesture in safari
-      document.body.style.zoom = 0.99;
+      document.body.style.zoom = "0.99";
     });
 
     document.body.addEventListener("gesturechange", function (e) {
       e.preventDefault();
       // special hack to prevent zoom-to-tabs gesture in safari
-      document.body.style.zoom = 0.99;
+      document.body.style.zoom = "0.99";
     });
 
     document.body.addEventListener("gestureend", function (e) {
       e.preventDefault();
       // special hack to prevent zoom-to-tabs gesture in safari
-      document.body.style.zoom = 0.99;
+      document.body.style.zoom = "0.99";
     });
   }, []);
 
