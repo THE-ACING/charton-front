@@ -13,6 +13,7 @@ import { useDebounce } from "use-debounce";
 import useOnPlay from "@/hooks/useOnPlay";
 import FirstSong from "@/components/SongItem/FirstSong";
 import { Skeleton } from "@telegram-apps/telegram-ui";
+import {initData, useSignal} from "@telegram-apps/sdk-react";
 
 // interface SearchProps {
 //   searchParams: {

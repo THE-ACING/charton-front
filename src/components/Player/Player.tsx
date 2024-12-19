@@ -19,17 +19,16 @@ const Player = () => {
     enabled: !!player.activeId,
   });
 
-  const songUrl = song ? song.source : "";
+  // const songUrl = song ? song.source : "";
 
-  if (!song || !songUrl || !player.activeId) {
+  if (!song || !player.activeId) {
     return null;
   }
 
   return (
     <PlayerContent
-      key={songUrl}
+      key={song.id}
       song={song}
-      songUrl={songUrl}
       expand={expand}
       setExpand={setExpand}
     />

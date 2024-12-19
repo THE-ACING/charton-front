@@ -31,7 +31,7 @@ const SongCard = () => {
       </div>
       <div
         className={
-          "section-bg-color p-6 z-30 rounded-tl-3xl flex gap-x-2 items-center "
+          "section-bg-color py-6 px-5 z-10 rounded-tl-3xl flex gap-x-2 items-center "
         }
       >
         <div

@@ -20,6 +20,7 @@ import Providers from "@/app/providers";
 export const metadata: Metadata = {
   title: "Charton",
   description: "New Age Music App just in Telegram",
+
 };
 
 export default async function RootLayout({ children }: PropsWithChildren) {
@@ -27,18 +28,37 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang={locale}>
+      <head>
+        <link
+          rel="icon"
+          type="image/png"
+          href="/images/favicon-96x96.png"
+          sizes="96x96"
+        />
+        <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/images/apple-touch-icon.png"
+        />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </head>
       <body>
-      <I18nProvider>
-        <Providers>
-          <Root>
-            <div className={"relative h-[100vh] flex flex-col"}>
-              <Content>{children}</Content>
-              <NavigationBar />
-            </div>
-            <Player />
-          </Root>
-        </Providers>
-      </I18nProvider>
+        <I18nProvider>
+          <Providers>
+            <Root>
+              <div className={"relative h-[100vh] flex flex-col"}>
+                <Content>{children}</Content>
+                <NavigationBar />
+              </div>
+              <Player />
+            </Root>
+          </Providers>
+        </I18nProvider>
       </body>
     </html>
   );

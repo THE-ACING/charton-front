@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import { IoClose, IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
+import { IoPlaySkipForward } from "react-icons/io5";
 import usePlayer from "@/hooks/usePlayerStore";
 import React, {
   Dispatch,
@@ -11,17 +11,14 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { FaPlus } from "react-icons/fa";
-import { TbRepeat } from "react-icons/tb";
-import { PiShuffleBold } from "react-icons/pi";
-import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { Track } from "@/client";
 import ProgressCompact from "./ProgressCompact";
+import Audio from "./Audio";
+import ExpandedPlayer from "@/components/Player/ExpandedPlayer";
 
 interface PlayerContentProps {
   song: Track;
-  songUrl: string;
   expand: boolean;
   setExpand: Dispatch<SetStateAction<boolean>>;
 }
@@ -29,13 +26,10 @@ interface PlayerContentProps {
 const PlayerContent: React.FC<PlayerContentProps> = ({
   song,
   expand,
-  songUrl: songUrl,
   setExpand,
 }) => {
   const lp = useLaunchParams();
-
   const player = usePlayer();
-  const title = song.title;
 
   // const {isPlaying, setIsPlaying} = usePlayerStore();
   const [isPlaying, setIsPlaying] = useState(true);
@@ -52,7 +46,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   const [audioProgress, setAudioProgress] = useState(0);
 
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
-  const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const togglePlayPause = () => {
     const prevValue = isPlaying;
@@ -167,178 +160,41 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     setLooped(false);
   };
 
+  console.log("player");
+
   return (
     <>
       <div
-        className={`z-[3] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all ` : `${lp?.platform === "ios" ? "bottom-[100px]" : "bottom-[91px]"} right-2 left-2`}`}
+        className={`z-[11] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all z-99999` : `${lp?.platform === "ios" ? "bottom-[103px]" : "bottom-[91px]"} right-2 left-2`}`}
       >
         <div className={`overflow-hidden w-full`}>
           <div
             className={`border-b border-x relative w-full  section-separator-color-border shadow overflow-hidden transition-all ${expand ? `h-full rounded-none  secondary-bg-color p-3 pb-0 border-none ${lp?.platform === "ios" ? "pb-5" : "pb-2"}` : "section-bg-color rounded-3xl p-1"}`}
           >
             {expand ? (
-              <>
-                <div
-                  className={`flex flex-col h-full gap-y-0.5 transition ${expand ? "opacity-100 " : "opacity-0"}`}
-                >
-                  <div className={"grow flex relative"}>
-                    <div className={"z-30 justify-between w-full px-2 pt-2"}>
-                      <div className={"flex justify-between z-20 w-full"}>
-                        <button
-                          onClick={() => setExpand(false)}
-                          className={
-                            "rounded-full section-bg-color p-5 flex items-center justify-center"
-                          }
-                        >
-                          <IoClose size={14} className={"text-color"} />
-                        </button>
-                        <button
-                          onClick={() => {}}
-                          className={
-                            "rounded-full section-bg-color p-5 flex items-center justify-center"
-                          }
-                        >
-                          <FaPlus size={14} className={"text-color"} />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        "rounded-3xl border section-separator-color-border section-bg-color h-60 w-60 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-                      }
-                    >
-                      <div
-                        className={
-                          "rounded-3xl bg-black h-52 w-52 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-                        }
-                      >
-                        <Image
-                          src={song.thumbnail}
-                          alt={"image"}
-                          width={150}
-                          height={150}
-                          className={"rounded-3xl w-full h-full "}
-                        />
-                      </div>
-                    </div>
-
-                    <div className={""} onDoubleClick={() => {}}></div>
-
-                    <div className={""} onDoubleClick={() => {}}></div>
-                  </div>
-                  <div
-                    className={
-                      "p-6 border section-bg-color section-separator-color-border rounded-3xl"
-                    }
-                  >
-                    <div className={"text-center mb-3"}>
-                      <h2 className={"text-color font-medium"}>{song.title}</h2>
-                      <p className={"subtitle-text-color text-[12px]"}>
-                        {song.authors &&
-                          song.authors.map((author) => author.name).join(", ")}
-                      </p>
-                    </div>
-                    <div
-                      className={
-                        "flex justify-between items-center text-[12px] subtitle-text-color mb-1.5"
-                      }
-                    >
-                      <span>{formatTime(currentTime)}</span>
-                      <span>
-                        {duration && !isNaN(duration) && formatTime(duration)
-                          ? formatTime(duration)
-                          : "00:00"}
-                      </span>
-                    </div>
-                    <div
-                      className={"relative flex justify-center items-center"}
-                    >
-                      <input
-                        type="range"
-                        className={"progress-bar section-separator-color"}
-                        value={audioProgress}
-                        ref={progressRef}
-                        onChange={changeProgress}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={
-                      "rounded-3xl p-3 border section-bg-color section-separator-color-border flex items-center justify-center sm:justify-between"
-                    }
-                  >
-                    <div
-                      className={
-                        "w-[120px] items-center gap-x-2 hidden sm:flex"
-                      }
-                    ></div>
-                    <div
-                      className={
-                        "flex flex-row items-center justify-center gap-x-1"
-                      }
-                    >
-                      <div
-                        onClick={function () {
-                          setLooped(!looped);
-                          setShuffled(false);
-                        }}
-                        className={`shadow-xl flex items-center justify-center rounded-full cursor-pointer p-4 transition ${looped ? "button-color" : "section-separator-color"}`}
-                      >
-                        <TbRepeat size={16} className={"text-color"} />
-                      </div>
-                      <div
-                        onClick={onPlayPrevious}
-                        className={
-                          "shadow-xl section-separator-color flex items-center justify-center transition rounded-full cursor-pointer p-4"
-                        }
-                      >
-                        <IoPlaySkipBack size={16} className={"text-color"} />
-                      </div>
-                      <div
-                        onClick={togglePlayPause}
-                        className={`cursor-pointer flex items-center justify-center shadow-xl transition rounded-full p-5 ${!isPlaying ? "button-color" : "section-separator-color"}`}
-                      >
-                        <Icon size={20} className={"text-color"} />
-                      </div>
-                      <div
-                        onClick={onPlayNext}
-                        className={
-                          "shadow-xl section-separator-color flex items-center justify-center transition rounded-full cursor-pointer p-4"
-                        }
-                      >
-                        <IoPlaySkipForward size={16} className={"text-color"} />
-                      </div>
-                      <div
-                        onClick={handleShuffle}
-                        className={`shadow-xl flex items-center justify-center rounded-full cursor-pointer p-4 transition ${shuffled ? "button-color" : "section-separator-color"}`}
-                      >
-                        <PiShuffleBold size={16} className={"text-color"} />
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        " w-[120px] items-center gap-x-2 hidden sm:flex"
-                      }
-                    >
-                      <VolumeIcon
-                        size={20}
-                        onClick={toggleMute}
-                        className={"cursor-pointer text-color"}
-                      />
-                      <input
-                        type="range"
-                        min={0}
-                        max={100}
-                        value={volume}
-                        onChange={(e) => setVolume(Number(e.target.value))}
-                        className={
-                          "w-[80px] h-[5px] progress-bar section-separator-color"
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-              </>
+              <ExpandedPlayer
+                expand={expand}
+                setExpand={setExpand}
+                song={song}
+                formatTime={formatTime}
+                currentTime={currentTime}
+                duration={duration}
+                audioProgress={audioProgress}
+                progressRefValue={progressRef}
+                changeProgress={changeProgress}
+                volume={volume}
+                setVolume={setVolume}
+                setLooped={setLooped}
+                setShuffled={setShuffled}
+                looped={looped}
+                onPlayPrevious={onPlayPrevious}
+                onPlayNext={onPlayNext}
+                togglePlayPause={togglePlayPause}
+                handleShuffle={handleShuffle}
+                toggleMute={toggleMute}
+                isPlaying={isPlaying}
+                shuffled={shuffled}
+              />
             ) : (
               <>
                 <div>
@@ -366,7 +222,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
                             "max-w-[35vw] text-[15px] truncate text-color font-semibold"
                           }
                         >
-                          {title}
+                          {song.title}
                         </p>
                         <p
                           className={
@@ -401,14 +257,15 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
               </>
             )}
 
-            <audio
-              autoPlay={true}
-              ref={audioRef}
+            <Audio
+              autoplay={true}
+              refValue={audioRef}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
-              src={songUrl}
+              source={song.source}
               onEnded={onPlayNext}
-              loop={looped}
+              looped={looped}
+              preload={"none"}
             />
           </div>
         </div>

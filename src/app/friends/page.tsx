@@ -51,7 +51,7 @@ const Friends = () => {
 
         <div
           className={
-            " cursor-pointer relative w-full p-3 section-bg-color subtitle-text-color rounded-xl text-[14px]  group overflow-hidden transition mb-1 truncate"
+            " cursor-pointer relative w-full p-3 section-bg-color  subtitle-text-color rounded-xl text-[14px]  group overflow-hidden transition mb-1 truncate pr-10"
           }
           onClick={copylink}
         >
@@ -59,7 +59,7 @@ const Friends = () => {
           <FiClipboard
             size={20}
             className={
-              "subtitle-text-color absolute opacity-100 right-2 top-[50%] translate-y-[-50%] group-active:opacity-0 transition"
+              "h-full w-[30px] pr-2 subtitle-text-color absolute opacity-100 right-0 top-[50%] translate-y-[-50%] group-active:opacity-0 transition"
             }
           />
         </div>

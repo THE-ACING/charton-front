@@ -7,7 +7,6 @@ import {
 } from "@telegram-apps/sdk-react";
 import CommunityWidget from "@/components/HomeLayout/CommunityWidget";
 import PlaylistsCarousel from "@/components/HomeLayout/PlaylistsCarousel";
-import PlaylistCard from "@/components/HomeLayout/PlaylistCard";
 import SongCard from "@/components/HomeLayout/SongCard";
 
 const HomeLayout = () => {

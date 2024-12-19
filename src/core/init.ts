@@ -7,8 +7,10 @@ import {
   $debug,
   init as initSDK,
   expandViewport,
-  retrieveLaunchParams,
+  initDataRaw, useSignal,
 } from "@telegram-apps/sdk-react";
+import { client } from "@/client";
+import axios from "axios";
 
 /**
  * Initializes the application and configures its dependencies.
@@ -37,9 +39,28 @@ export function init(debug: boolean): void {
   // fetch('https://example.com/api', {
   //   method: "POST",
   //   headers: {
-  //     Authorization: `tma ${initDataRaw}`
+  //     Authorization: `Bearer ${initDataRaw}`
   //   },
   // });
+
+  // const initDataRawCustom = useSignal(initData.raw);
+  // client.instance.interceptors.request.use((config) => {
+  //   config.headers.set("Authorization", `Bearer ${initDataRawCustom}`);
+  //   return config;
+  // });
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+
+  // console.log(
+  //   axios({
+  //     url: "https://apidev.thecharton.tech/auth/init-data",
+  //     method: "get",
+  //     headers: {
+  //       Authorization: `Bearer ${initDataRawCustom}`,
+  //     },
+  //   }),
+  // );
 
   expandViewport();
 
