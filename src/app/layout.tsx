@@ -23,6 +23,12 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
 
+  document.addEventListener(
+    "dblclick",
+    function (event) {
+      event.preventDefault();
+  }, {passive: false})
+
   return (
     <html lang={locale}>
       <head>
@@ -37,6 +43,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
+
       </head>
       <body>
         <I18nProvider>
