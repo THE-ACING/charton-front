@@ -31,13 +31,32 @@ export function Page({
   }, [router]);
 
   useEffect(() => {
-    document.addEventListener(
+
+    document.body.addEventListener(
       "dblclick",
       function (event) {
         event.preventDefault();
       },
       { passive: false },
     );
+
+    document.body.addEventListener("gesturestart", function (e) {
+      e.preventDefault();
+      // special hack to prevent zoom-to-tabs gesture in safari
+      document.body.style.zoom = 0.99;
+    });
+
+    document.body.addEventListener("gesturechange", function (e) {
+      e.preventDefault();
+      // special hack to prevent zoom-to-tabs gesture in safari
+      document.body.style.zoom = 0.99;
+    });
+
+    document.body.addEventListener("gestureend", function (e) {
+      e.preventDefault();
+      // special hack to prevent zoom-to-tabs gesture in safari
+      document.body.style.zoom = 0.99;
+    });
   }, []);
 
   return (

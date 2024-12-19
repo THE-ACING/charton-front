@@ -13,7 +13,7 @@ import Content from "@/components/Content";
 import Player from "@/components/Player/Player";
 import React from "react";
 import Providers from "@/app/providers";
-import DisableZoom from "@/utils/DisableZoom";
+// import DisableZoom from "@/utils/DisableZoom";
 
 export const metadata: Metadata = {
   title: "Charton",
@@ -43,7 +43,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         <I18nProvider>
           <Providers>
             <Root>
-              <DisableZoom />
+
               <div className={"relative h-[100vh] flex flex-col"}>
                 <Content>{children}</Content>
                 <NavigationBar />
