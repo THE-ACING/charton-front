@@ -30,8 +30,26 @@ export function Page({
     });
   }, [router]);
 
-  return <div className={"pb-40 relative"}>
-    {children}
-    <p className={"absolute left-[50%] translate-x-[-50%] bottom-32 text-color"}>(◕‿‿◕｡)</p>
-  </div>;
+  useEffect(() => {
+    document.addEventListener(
+      "dblclick",
+      function (event) {
+        event.preventDefault();
+      },
+      { passive: false },
+    );
+  }, []);
+
+  return (
+    <div className={"pb-40 relative"}>
+      {children}
+      <p
+        className={
+          "absolute left-[50%] translate-x-[-50%] bottom-32 text-color"
+        }
+      >
+        (◕‿‿◕｡)
+      </p>
+    </div>
+  );
 }

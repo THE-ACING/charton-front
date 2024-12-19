@@ -23,12 +23,6 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
 
-  document.addEventListener(
-    "dblclick",
-    function (event) {
-      event.preventDefault();
-  }, {passive: false})
-
   return (
     <html lang={locale}>
       <head>
