@@ -9,18 +9,15 @@ import "@telegram-apps/telegram-ui/dist/styles.css";
 import "normalize.css/normalize.css";
 import "./_assets/globals.css";
 import NavigationBar from "@/components/NavigationBar";
-import ToasterProvider from "@/providers/ToasterProvider";
 import Content from "@/components/Content";
 import Player from "@/components/Player/Player";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import useState from "react";
 import React from "react";
 import Providers from "@/app/providers";
+import DisableZoom from "@/utils/DisableZoom";
 
 export const metadata: Metadata = {
   title: "Charton",
   description: "New Age Music App just in Telegram",
-
 };
 
 export default async function RootLayout({ children }: PropsWithChildren) {
@@ -29,13 +26,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang={locale}>
       <head>
-        <link
-          rel="icon"
-          type="image/png"
-          href="/images/favicon-96x96.png"
-          sizes="96x96"
-        />
-        <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+        <link rel="icon" type="image/png" href="/images/favicon-96x96.png" />
         <link rel="shortcut icon" href="/images/favicon.ico" />
         <link
           rel="apple-touch-icon"
@@ -44,13 +35,14 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
       </head>
       <body>
         <I18nProvider>
           <Providers>
             <Root>
+              <DisableZoom />
               <div className={"relative h-[100vh] flex flex-col"}>
                 <Content>{children}</Content>
                 <NavigationBar />
