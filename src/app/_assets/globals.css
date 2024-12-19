@@ -17,6 +17,10 @@
 
 }
 
+html, body{
+  touch-action: none;
+}
+
 body {
   background: var(--tg-theme-secondary-bg-color);
   position: relative;
