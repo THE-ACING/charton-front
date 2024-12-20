@@ -10,6 +10,7 @@ import { ModalHeader } from "@telegram-apps/telegram-ui/dist/components/Overlays
 import { useState } from "react";
 import Input from "@/components/Input/Input";
 import React from "react";
+import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
 
 const Playlists = () => {
   const [playlistName, setPlaylistName] = useState("");
@@ -27,7 +28,7 @@ const Playlists = () => {
 
   return (
     <Page back={true}>
-      <div className={"px-3 py-5 box flex flex-col gap-y-0.5 text-color"}>
+      <div className={"px-3 py-5 box flex flex-col gap-y-0.5 text-color "}>
         <div className={"flex justify-center items-center flex-col gap-y-1"}>
           <div
             className={
@@ -47,11 +48,23 @@ const Playlists = () => {
             Playlists
           </h2>
         </div>
-        <div className={"flex flex-col gap-y-1"}>
+        <div className={"flex flex-col gap-y-1 "}>
           <Modal
             className={`px-5 flex justify-center pb-6 z-[999]`}
-            header={<ModalHeader></ModalHeader>}
+            header={
+              <ModalHeader
+                after={
+                  <Modal.Close>
+                    <Icon28Close
+                      style={{ color: "var(--tgui--plain_foreground)" }}
+                    />
+                  </Modal.Close>
+                }
+              ></ModalHeader>
+            }
             snapPoints={[1]}
+            preventScrollRestoration={false}
+            modal={false}
             trigger={
               <Button
                 onClick={handleClick}
@@ -70,7 +83,6 @@ const Playlists = () => {
                 </h2>
                 <h2 className={"mb-1 font-medium text-[18px]"}>Title</h2>
                 <Input
-
                   className={
                     "border-2 section-separator-color-border mb-1 truncate"
                   }
