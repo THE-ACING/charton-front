@@ -137,6 +137,10 @@ body {
   background: var(--tg-theme-section-bg-color);
 }
 
+.section-bg-border-color{
+  border-color: var(--tg-theme-section-bg-color);
+}
+
 .section-separator-color-border{
   border-color: var(--tg-theme-section-separator-color);
 }

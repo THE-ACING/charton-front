@@ -5,7 +5,7 @@ const SongCard = () => {
   return (
     <div
       className={
-        "section-bg-color rounded-3xl relative overflow-hidden flex flex-col min-w-[300px] min-h-[250px] active:scale-95 transition"
+        "border-2 section-bg-border-color section-bg-color rounded-3xl relative overflow-hidden flex flex-col min-w-[300px] min-h-[250px] active:scale-95 transition"
       }
     >
       <Image
@@ -13,9 +13,7 @@ const SongCard = () => {
         alt={""}
         width={100}
         height={100}
-        className={
-          "absolute w-full object-cover top-0 bottom-0 left-0 right-0 "
-        }
+        className={"absolute object-cover w-full bottom-0 right-0"}
       />
       <h2 className={"font-bold text-[20px] absolute top-5 left-5"}>
         Workout Mix
@@ -31,7 +29,7 @@ const SongCard = () => {
       </div>
       <div
         className={
-          "section-bg-color py-6 px-5 z-10 rounded-tl-3xl flex gap-x-2 items-center "
+          "border-2 section-bg-border-color section-bg-color py-6 px-5 z-10 rounded-tl-3xl flex gap-x-2 items-center "
         }
       >
         <div

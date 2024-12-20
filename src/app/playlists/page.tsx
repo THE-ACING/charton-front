@@ -87,7 +87,7 @@ const Playlists = () => {
                 </p>
                 <Input
                   className={
-                    "border-2 section-separator-color-border mb-2 truncate"
+                    "border-2 section-separator-color-border mb-2 truncate "
                   }
                   placeholder="Link to"
                   value={playlistLink}

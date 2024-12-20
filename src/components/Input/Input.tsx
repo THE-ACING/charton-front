@@ -15,6 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={twMerge(
           `
+                focus:text-[16px]
                 flex
                 w-full
                 p-3 
@@ -23,7 +24,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 section-bg-color 
                 border
                 border-transparent
-                text-[14px]
+                text-[16px]
                 file:border-0
                 placeholder:subtitle-text-color
                 disabled:cursor-not-allowed

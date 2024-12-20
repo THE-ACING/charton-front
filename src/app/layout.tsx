@@ -13,7 +13,7 @@ import Content from "@/components/Content";
 import Player from "@/components/Player/Player";
 import React from "react";
 import Providers from "@/app/providers";
-// import DisableZoom from "@/utils/DisableZoom";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Charton",
@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang={locale}>
-      <head>
+      <Head>
         <link rel="icon" type="image/png" href="/images/favicon-96x96.png" />
         <link rel="shortcut icon" href="/images/favicon.ico" />
         <link
@@ -37,13 +37,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
-
-      </head>
+      </Head>
       <body>
         <I18nProvider>
           <Providers>
             <Root>
-
               <div className={"relative h-[100vh] flex flex-col"}>
                 <Content>{children}</Content>
                 <NavigationBar />
