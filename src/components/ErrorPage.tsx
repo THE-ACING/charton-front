@@ -27,7 +27,7 @@ export function ErrorPage({
           alt={""}
           width={100}
           height={100}
-          className={"mb-2"}
+          className={"mb-4"}
         />
         <h2 className={"text-[22px] font-semibold mb-2"}>
           Seems like you open Charton outside Telegram
@@ -41,13 +41,13 @@ export function ErrorPage({
           </Link>
           you can launch the application via a telegram bot
         </p>
-        <div className={"text-neutral-500 mt-3 text-center"}>
+        <div className={"text-neutral-500 mt-1 text-center"}>
           Join the Charton community, all project updates in the{"\u00A0"}
           <Link href={"https://t.me/TheCharton"} className={"text-cyan-400"}>
             official Channel
           </Link>
         </div>
-        <p className={"mt-1 font-medium"}>Tune in. Take Over 🫦</p>
+        <p className={"mt-3 font-medium"}>Tune in. Take Over 🫦</p>
       </div>
     );
   }

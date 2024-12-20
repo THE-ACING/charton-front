@@ -7,13 +7,14 @@ import { FaPlus } from "react-icons/fa";
 import { Page } from "@/components/Page";
 import { Button, Modal } from "@telegram-apps/telegram-ui";
 import { ModalHeader } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Input from "@/components/Input/Input";
 import React from "react";
-import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
-import {tracksSearchTracks, userGetPlaylists} from "@/client";
+import { Icon28Close } from "@telegram-apps/telegram-ui/dist/icons/28/close";
+import {playlistsCreatePlaylist, tracksSearchTracks, userGetPlaylists} from "@/client";
 import useUserAuth from "@/hooks/useUserAuth";
-import {useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import PlaylistCard from "@/components/PlaylistCard/PlaylistCard";
 
 const Playlists = () => {
   const [playlistName, setPlaylistName] = useState("");
@@ -25,17 +26,26 @@ const Playlists = () => {
     console.log("click");
   };
 
-  const handleCreatePlaylist = () => {
-    console.log("sent: ", playlistName, playlistLink);
+
+
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: [`playlists`, user?.data?.id],
+    queryFn: async () =>
+      userGetPlaylists({ path: { user_id: user?.data?.id! } }),
+    enabled: !!user?.data?.id,
+  });
+
+  useEffect(() => {
+    refetch()
+  }, [refetch]);
+
+  const handleCreatePlaylist = async () => {
+    await playlistsCreatePlaylist({ body: { title: playlistName } });
+    await refetch();
+
     setPlaylistName("");
     setPlaylistLink("");
   };
-
-  const { data, isLoading } = useQuery({
-    queryKey: [`playlists`, user?.data?.id],
-    queryFn: async () => userGetPlaylists({path: {user_id: user?.data?.id!}}),
-    enabled: !!user?.data?.id,
-  });
 
   return (
     <Page back={true}>
@@ -133,37 +143,11 @@ const Playlists = () => {
             </React.Fragment>
           </Modal>
 
-          <Link
-            href={"/liked"}
-            className={
-              "w-full p-3 pr-6 section-bg-color transition rounded-[20px] flex justify-between items-center"
-            }
-          >
-            <div className={"flex gap-x-4"}>
-              <Image
-                src={"/images/favBg-4.jpg"}
-                alt={"image"}
-                width={30}
-                height={30}
-                className={"w-[60px] h-[60px] rounded-2xl"}
-              />
-              <div className={"flex flex-col justify-center"}>
-                <p className={"font-semibold leading-4 text-color"}>
-                  Favourites
-                </p>
-                <p className={"text-[12px] subtitle-text-color"}>No tracks(</p>
-              </div>
-              <div>
-                {isLoading && (
-                    <div>Loading...</div>
-                )}
-                {data?.data && (
-                    <div>ZAEBUMBA</div>
-                )}
-              </div>
-            </div>
-            <FaPlay size={20} className={"text-color"} />
-          </Link>
+          {isLoading && <div>Loading...</div>}
+          {data?.data &&
+            data.data.playlists.map((playlist) => (
+              <PlaylistCard key={playlist.id} playlist={playlist} />
+            ))}
         </div>
         {/*<div className={'relative cursor-pointer p-6 rounded-[20px] button-color font-bold flex items-center justify-center gap-x-2'}>*/}
         {/*    <p>New Playlist</p>*/}

@@ -2,14 +2,18 @@
 
 import Image from "next/image";
 import { Page } from "@/components/Page";
-import { initData, useSignal } from "@telegram-apps/sdk-react";
+import {initData, parseInitData, useSignal} from "@telegram-apps/sdk-react";
 import {Button, Divider, Skeleton} from "@telegram-apps/telegram-ui";
 
 const Profile = () => {
+  const initDataRaw = useSignal(initData.raw);
+
   const initDataUser = useSignal(initData.user);
   const profileAvatar = initDataUser?.photoUrl
     ? initDataUser.photoUrl
     : "/images/favBg-4.jpg";
+
+  console.log(parseInitData(initDataRaw));
 
   return (
     <Page back={true}>

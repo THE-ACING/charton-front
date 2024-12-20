@@ -188,4 +188,16 @@ body,
   height: 100%;
 }
 
+.tooltip{
+  content: "";
+  position: absolute;
+  top: 58px;
+  right: 0;
+  width: 200px;
+  border-radius: 10px;
+}
+
+.tooltip.disabled{
+  display: none;
+}
 

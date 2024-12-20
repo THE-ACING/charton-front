@@ -1,4 +1,10 @@
-import React, {Dispatch, MutableRefObject, ReactNode, SetStateAction} from "react";
+import React, {
+  Dispatch,
+  MutableRefObject,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from "react";
 import { IoClose, IoPlaySkipBack, IoPlaySkipForward } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 import Image from "next/image";
@@ -6,7 +12,11 @@ import { TbRepeat } from "react-icons/tb";
 import { PiShuffleBold } from "react-icons/pi";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import { Track } from "@/client";
+import { playlistsAddTrackToPlaylist, Track, userGetPlaylists } from "@/client";
+import { Divider } from "@telegram-apps/telegram-ui";
+import { CgClose } from "react-icons/cg";
+import { useQuery } from "@tanstack/react-query";
+import useUserAuth from "@/hooks/useUserAuth";
 
 interface ExpandedPlayerProps {
   expand: boolean;
@@ -55,8 +65,30 @@ const ExpandedPlayer: React.FC<ExpandedPlayerProps> = ({
   isPlaying,
   shuffled,
 }) => {
+  const user = useUserAuth();
+  const [openTooltip, setOpenTooltip] = useState(false);
+
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
   const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+  const PlaylistIcon = openTooltip ? CgClose : FaPlus;
+
+  const { data, isLoading } = useQuery({
+    queryKey: [`playlists`, user?.data?.id],
+    queryFn: async () =>
+      userGetPlaylists({ path: { user_id: user?.data?.id! } }),
+    enabled: !!user?.data?.id,
+  });
+
+  const handleOpenTooltip = () => {
+    setOpenTooltip(!openTooltip);
+  };
+
+  const handleAddToPlaylist = async (id: any) => {
+    await playlistsAddTrackToPlaylist({
+      body: song,
+      path: { playlist_id: id },
+    });
+  };
 
   return (
     <>
@@ -69,19 +101,69 @@ const ExpandedPlayer: React.FC<ExpandedPlayerProps> = ({
               <button
                 onClick={() => setExpand(false)}
                 className={
-                  "rounded-full section-bg-color p-5 flex items-center justify-center"
+                  "rounded-3xl section-bg-color p-5 flex items-center justify-center"
                 }
               >
                 <IoClose size={14} className={"text-color"} />
               </button>
-              <button
-                onClick={() => {}}
+              <div
+                onClick={handleOpenTooltip}
                 className={
-                  "rounded-full section-bg-color p-5 flex items-center justify-center"
+                  "addplaylist relative rounded-3xl section-bg-color p-5 flex items-center justify-center"
                 }
               >
-                <FaPlus size={14} className={"text-color"} />
-              </button>
+                <PlaylistIcon size={14} className={"text-color"} />
+
+                <div
+                  className={`${!openTooltip && "opacity-0 hidden"} border section-separator-color-border tooltip section-bg-color overflow-hidden transition opacity-100`}
+                >
+                  <div
+                    className={
+                      "text-left section-separator-color text-[12px] py-1 px-2 uppercase font-thin"
+                    }
+                  >
+                    Add to playlist
+                  </div>
+                  <div className={"px-3 max-h-[192px] overflow-y-auto"}>
+                    {data?.data &&
+                      data.data.playlists.map((playlist) => (
+                        <>
+                          <div
+                            key={playlist.id}
+                            className={"py-3 flex gap-x-2 cursor-pointer"}
+                            onClick={() => handleAddToPlaylist(playlist.id)}
+                          >
+                            <div
+                              className={"bg-black w-10 h-10 rounded-3xl"}
+                            ></div>
+
+                            <div
+                              className={
+                                "flex flex-col items-start justify-center "
+                              }
+                            >
+                              <h4
+                                className={
+                                  "font-medium text-color leading-5 truncate"
+                                }
+                              >
+                                {playlist.title}
+                              </h4>
+                              <p
+                                className={
+                                  " text-[12px] subtitle-text-color truncate"
+                                }
+                              >
+                                {"No tracks("}
+                              </p>
+                            </div>
+                          </div>
+                          <Divider />
+                        </>
+                      ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div
