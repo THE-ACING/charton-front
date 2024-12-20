@@ -60,11 +60,11 @@ export function Page({
     });
   }, []);
 
-  // const initDataRawCustom = useSignal(initData.raw);
-  // client.instance.interceptors.request.use((config) => {
-  //   config.headers.set("Authorization", `Bearer ${initDataRawCustom}`);
-  //   return config;
-  // });
+  const initDataRawCustom = useSignal(initData.raw);
+  client.instance.interceptors.request.use((config) => {
+    config.headers.set("Authorization", `Bearer ${initDataRawCustom}`);
+    return config;
+  });
 
   return (
     <div className={"pb-40 relative"}>

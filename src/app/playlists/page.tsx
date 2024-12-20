@@ -11,11 +11,15 @@ import { useState } from "react";
 import Input from "@/components/Input/Input";
 import React from "react";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
-import {userGetPlaylists} from "@/client";
+import {tracksSearchTracks, userGetPlaylists} from "@/client";
+import useUserAuth from "@/hooks/useUserAuth";
+import {useQuery} from "@tanstack/react-query";
 
 const Playlists = () => {
   const [playlistName, setPlaylistName] = useState("");
   const [playlistLink, setPlaylistLink] = useState("");
+
+  const user = useUserAuth();
 
   const handleClick = () => {
     console.log("click");
@@ -26,6 +30,12 @@ const Playlists = () => {
     setPlaylistName("");
     setPlaylistLink("");
   };
+
+  const { data, isLoading } = useQuery({
+    queryKey: [`playlists`, user?.data?.id],
+    queryFn: async () => userGetPlaylists({path: {user_id: user?.data?.id!}}),
+    enabled: !!user?.data?.id,
+  });
 
   return (
     <Page back={true}>
@@ -144,7 +154,12 @@ const Playlists = () => {
                 <p className={"text-[12px] subtitle-text-color"}>No tracks(</p>
               </div>
               <div>
-
+                {isLoading && (
+                    <div>Loading...</div>
+                )}
+                {data?.data && (
+                    <div>ZAEBUMBA</div>
+                )}
               </div>
             </div>
             <FaPlay size={20} className={"text-color"} />
