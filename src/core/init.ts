@@ -43,12 +43,6 @@ export function init(debug: boolean): void {
   //   },
   // });
 
-  // const initDataRawCustom = useSignal(initData.raw);
-  // client.instance.interceptors.request.use((config) => {
-  //   config.headers.set("Authorization", `Bearer ${initDataRawCustom}`);
-  //   return config;
-  // });
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
 

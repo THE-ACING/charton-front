@@ -11,6 +11,7 @@ import { useState } from "react";
 import Input from "@/components/Input/Input";
 import React from "react";
 import {Icon28Close} from "@telegram-apps/telegram-ui/dist/icons/28/close";
+import {userGetPlaylists} from "@/client";
 
 const Playlists = () => {
   const [playlistName, setPlaylistName] = useState("");
@@ -141,6 +142,9 @@ const Playlists = () => {
                   Favourites
                 </p>
                 <p className={"text-[12px] subtitle-text-color"}>No tracks(</p>
+              </div>
+              <div>
+
               </div>
             </div>
             <FaPlay size={20} className={"text-color"} />

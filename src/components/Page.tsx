@@ -1,8 +1,9 @@
 "use client";
 
-import { backButton } from "@telegram-apps/sdk-react";
+import {backButton, initData, useSignal} from "@telegram-apps/sdk-react";
 import { PropsWithChildren, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import {client} from "@/client";
 
 export function Page({
   children,
@@ -58,6 +59,12 @@ export function Page({
       document.body.style.zoom = "0.99";
     });
   }, []);
+
+  // const initDataRawCustom = useSignal(initData.raw);
+  // client.instance.interceptors.request.use((config) => {
+  //   config.headers.set("Authorization", `Bearer ${initDataRawCustom}`);
+  //   return config;
+  // });
 
   return (
     <div className={"pb-40 relative"}>

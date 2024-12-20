@@ -8,12 +8,11 @@ import SongItem from "@/components/SongItem/SongItem";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useQuery } from "@tanstack/react-query";
-import { searchTracks } from "@/client";
+import { tracksSearchTracks } from "@/client";
 import { useDebounce } from "use-debounce";
 import useOnPlay from "@/hooks/useOnPlay";
 import FirstSong from "@/components/SongItem/FirstSong";
 import { Skeleton } from "@telegram-apps/telegram-ui";
-import {initData, useSignal} from "@telegram-apps/sdk-react";
 
 // interface SearchProps {
 //   searchParams: {
@@ -41,7 +40,7 @@ const Search = () => {
 
   const { data, isLoading } = useQuery({
     queryKey: [`tracks`, value],
-    queryFn: async () => searchTracks({ query: { query: value } }),
+    queryFn: async () => tracksSearchTracks({ query: { query: value } }),
     enabled: !!value,
   });
 
