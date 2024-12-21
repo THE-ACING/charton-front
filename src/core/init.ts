@@ -7,10 +7,7 @@ import {
   $debug,
   init as initSDK,
   expandViewport,
-  initDataRaw, useSignal,
 } from "@telegram-apps/sdk-react";
-import { client } from "@/client";
-import axios from "axios";
 
 /**
  * Initializes the application and configures its dependencies.
@@ -30,33 +27,16 @@ export function init(debug: boolean): void {
   // miniApp.ready();
   themeParams.mount();
   initData.restore();
+
   void viewport.mount().catch((e) => {
     console.error("Something went wrong mounting the viewport", e);
   });
 
-  // const { initDataRaw } = retrieveLaunchParams();
-
-  // fetch('https://example.com/api', {
-  //   method: "POST",
-  //   headers: {
-  //     Authorization: `Bearer ${initDataRaw}`
-  //   },
-  // });
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-
-
-  // console.log(
-  //   axios({
-  //     url: "https://apidev.thecharton.tech/auth/init-data",
-  //     method: "get",
-  //     headers: {
-  //       Authorization: `Bearer ${initDataRawCustom}`,
-  //     },
-  //   }),
-  // );
-
   expandViewport();
+
+  // if (viewport.requestFullscreen.isAvailable()) {
+  //   viewport.requestFullscreen();
+  // }
 
   // Define components-related CSS variables.
   viewport.bindCssVars();

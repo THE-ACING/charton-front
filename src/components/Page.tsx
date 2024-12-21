@@ -1,6 +1,6 @@
 "use client";
 
-import {backButton, initData, useSignal} from "@telegram-apps/sdk-react";
+import {backButton, initData, useSignal, viewport} from "@telegram-apps/sdk-react";
 import { PropsWithChildren, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {client} from "@/client";
@@ -67,7 +67,7 @@ export function Page({
   });
 
   return (
-    <div className={"pb-40 relative"}>
+    <div className={"mt-10 pb-40 relative"}>
       {children}
       <p
         className={

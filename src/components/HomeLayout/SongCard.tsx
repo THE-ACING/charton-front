@@ -34,7 +34,7 @@ const SongCard = () => {
       >
         <div
           className={
-            "w-14 h-14 border section-separator-color-border rounded-full flex items-center justify-center text-color font-thin"
+            "w-14 h-14 border-2 section-separator-color-border rounded-full flex items-center justify-center text-color"
           }
         >
           42m
