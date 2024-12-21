@@ -67,7 +67,7 @@ export function Page({
   });
 
   return (
-    <div className={"mt-16 pb-40 relative"}>
+    <div className={"mt-20 pb-40 relative"}>
       {children}
       <p
         className={
