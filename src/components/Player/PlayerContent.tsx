@@ -11,7 +11,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useLaunchParams } from "@telegram-apps/sdk-react";
+import {backButton, useLaunchParams} from "@telegram-apps/sdk-react";
 import { Track } from "@/client";
 import ProgressCompact from "./ProgressCompact";
 import Audio from "./Audio";
@@ -76,6 +76,18 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
       );
     }
   };
+
+  /////////////////////////////////
+
+  useEffect(() => {
+    if (expand) {
+      return backButton.onClick(() => {
+        setExpand((prevState) => !prevState);
+      });
+    }
+  }, [expand, setExpand]);
+
+  //////////////////////////////////
 
   useEffect(() => {
     handleTimeUpdate();

@@ -7,12 +7,14 @@ import {
   $debug,
   init as initSDK,
   expandViewport,
+  requestFullscreen, useLaunchParams,
 } from "@telegram-apps/sdk-react";
 
 /**
  * Initializes the application and configures its dependencies.
  */
-export function init(debug: boolean): void {
+export function init(debug: boolean, platform: string): void {
+
   // Set @telegram-apps/sdk-react debug mode.
   $debug.set(debug);
 
@@ -28,18 +30,23 @@ export function init(debug: boolean): void {
   themeParams.mount();
   initData.restore();
 
-  void viewport.mount().catch((e) => {
-    console.error("Something went wrong mounting the viewport", e);
-  });
+  // void viewport.mount().catch((e) => {
+  //   console.error("Something went wrong mounting the viewport", e);
+  // });
 
   expandViewport();
 
-  // if (viewport.requestFullscreen.isAvailable()) {
-  //   viewport.requestFullscreen();
-  // }
-
   // Define components-related CSS variables.
-  viewport.bindCssVars();
+  viewport.mount().then(() => {
+    if (
+      viewport.requestFullscreen.isAvailable() &&
+      (platform === "ios" || platform === "android")
+    ) {
+      viewport.requestFullscreen();
+    }
+    viewport.bindCssVars();
+
+  })
   miniApp.bindCssVars();
   themeParams.bindCssVars();
 

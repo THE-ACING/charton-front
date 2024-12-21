@@ -1,6 +1,6 @@
 "use client";
 
-import {backButton, initData, useSignal, viewport} from "@telegram-apps/sdk-react";
+import {backButton, initData, requestFullscreen, useLaunchParams, useSignal, viewport} from "@telegram-apps/sdk-react";
 import { PropsWithChildren, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {client} from "@/client";
@@ -16,6 +16,7 @@ export function Page({
   back?: boolean;
 }>) {
   const router = useRouter();
+  const lp = useLaunchParams();
 
   useEffect(() => {
     if (back) {
@@ -66,8 +67,14 @@ export function Page({
     return config;
   });
 
+  // useEffect(() => {
+  //   viewport.requestFullscreen();
+  // }, []);
+
   return (
-    <div className={"mt-20 pb-40 relative"}>
+    <div
+      className={`${(lp.platform === "ios" || lp.platform === "android") && "mt-20"} pb-40 relative`}
+    >
       {children}
       <p
         className={

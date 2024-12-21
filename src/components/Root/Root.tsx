@@ -33,7 +33,7 @@ function RootInner({ children }: PropsWithChildren) {
 
   // Initialize the library.
   useClientOnce(() => {
-    init(debug);
+    init(debug, lp.platform);
   });
 
   const isDark = useSignal(miniApp.isDark);

@@ -11,7 +11,7 @@ import "./_assets/globals.css";
 import NavigationBar from "@/components/NavigationBar";
 import Content from "@/components/Content";
 import Player from "@/components/Player/Player";
-import React from "react";
+import React, {useEffect} from "react";
 import Providers from "@/app/providers";
 import Head from "next/head";
 
@@ -20,8 +20,14 @@ export const metadata: Metadata = {
   description: "New Age Music App just in Telegram",
 };
 
+
+
 export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
+
+
+
+
 
   return (
     <html lang={locale}>
