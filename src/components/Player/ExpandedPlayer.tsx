@@ -17,6 +17,7 @@ import { Divider } from "@telegram-apps/telegram-ui";
 import { CgClose } from "react-icons/cg";
 import { useQuery } from "@tanstack/react-query";
 import useUserAuth from "@/hooks/useUserAuth";
+import {useLaunchParams} from "@telegram-apps/sdk-react";
 
 interface ExpandedPlayerProps {
   expand: boolean;
@@ -65,6 +66,7 @@ const ExpandedPlayer: React.FC<ExpandedPlayerProps> = ({
   isPlaying,
   shuffled,
 }) => {
+  const lp = useLaunchParams();
   const user = useUserAuth();
   const [openTooltip, setOpenTooltip] = useState(false);
 
@@ -93,7 +95,7 @@ const ExpandedPlayer: React.FC<ExpandedPlayerProps> = ({
   return (
     <>
       <div
-        className={`flex flex-col h-full gap-y-0.5 transition ${expand ? "opacity-100 " : "opacity-0"}`}
+        className={`${(lp.platform === "ios" || lp.platform === "android") && "pt-20"} flex flex-col h-full gap-y-0.5 transition ${expand ? "opacity-100 " : "opacity-0"}`}
       >
         <div className={"grow flex relative"}>
           <div className={"z-30 justify-between w-full px-2 pt-2"}>

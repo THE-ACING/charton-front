@@ -7,7 +7,6 @@ import {
   $debug,
   init as initSDK,
   expandViewport,
-  requestFullscreen, useLaunchParams,
 } from "@telegram-apps/sdk-react";
 
 /**
@@ -45,8 +44,7 @@ export function init(debug: boolean, platform: string): void {
       viewport.requestFullscreen();
     }
     viewport.bindCssVars();
-
-  })
+  });
   miniApp.bindCssVars();
   themeParams.bindCssVars();
 

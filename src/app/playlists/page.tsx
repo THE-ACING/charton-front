@@ -22,12 +22,6 @@ const Playlists = () => {
 
   const user = useUserAuth();
 
-  const handleClick = () => {
-    console.log("click");
-  };
-
-
-
   const { data, isLoading, refetch } = useQuery({
     queryKey: [`playlists`, user?.data?.id],
     queryFn: async () =>
@@ -88,7 +82,6 @@ const Playlists = () => {
             modal={false}
             trigger={
               <Button
-                onClick={handleClick}
                 before={<FaPlus />}
                 mode="filled"
                 size="l"

@@ -10,6 +10,8 @@ import { useQuery } from "@tanstack/react-query";
 import PlaylistContent from "@/components/PlaylistContent/PlaylistContent";
 import {useEffect} from "react";
 import {useRouter} from "next/navigation";
+import useOnPlay from "@/hooks/useOnPlay";
+import {openPopup} from "@telegram-apps/sdk-react";
 
 const Playlist = ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -25,10 +27,38 @@ const Playlist = ({ params }: { params: { id: string } }) => {
     refetch();
   }, [refetch]);
 
+
+
   const handlePlaylistDelete = async (id: any) => {
-    await playlistsRemovePlaylist({path: {playlist_id: id}});
-    await router.push("/playlists");
+    await openPopup({
+      title: "Delete playlist",
+      message: "Are you sure?",
+      buttons: [
+        {
+          id: "delete",
+          type: "destructive",
+          text: "Delete",
+        },
+        {
+          id: "cancel",
+          type: "default",
+          text: "Back",
+        },
+      ],
+    }).then((buttonId) => {
+      if (buttonId === "delete") {
+        playlistsRemovePlaylist({ path: { playlist_id: id } }).then((data) => console.log(data));
+        router.push("/playlists");
+
+
+
+      }
+    });
   };
+
+  const onPlay = useOnPlay(data?.data?.tracks ? data.data.tracks : []);
+
+  const tracksIds = data?.data?.tracks.map((track) => track.id);
 
   return (
     <Page back={true}>
@@ -79,8 +109,9 @@ const Playlist = ({ params }: { params: { id: string } }) => {
             </button>
             <button
               className={
-                "p-10 button-color rounded-full outline outline-2 outline-offset-4 outline-color"
+                "p-10 button-color rounded-full outline outline-2 outline-offset-4 outline-color active:scale-95 transition"
               }
+              onClick={() => onPlay(tracksIds ? tracksIds[0] : "")}
             >
               <FaPlay size={30} className={""} />
             </button>
