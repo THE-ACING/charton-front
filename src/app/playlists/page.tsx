@@ -30,7 +30,7 @@ const Playlists = () => {
   });
 
   useEffect(() => {
-    refetch()
+    refetch();
   }, [refetch]);
 
   const handleCreatePlaylist = async () => {

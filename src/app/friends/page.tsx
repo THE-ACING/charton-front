@@ -35,11 +35,15 @@ const Friends = () => {
     openTelegramLink(shareText);
   };
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: [`friends`],
     queryFn: async () =>
       await userGetReferrals({ path: { user_id: user?.data?.id! } }),
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return (
     <Page back={true}>

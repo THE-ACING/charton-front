@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { FaPlay } from "react-icons/fa6";
 import { IoIosShareAlt } from "react-icons/io";
 import { playlistsGetPlaylist, playlistsRemovePlaylist } from "@/client";
-import { useQuery } from "@tanstack/react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import PlaylistContent from "@/components/PlaylistContent/PlaylistContent";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -17,6 +17,7 @@ import { Skeleton, Spinner } from "@telegram-apps/telegram-ui";
 const Playlist = ({ params }: { params: { id: string } }) => {
   const { id } = params;
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: [`playlists`, id],
@@ -47,6 +48,7 @@ const Playlist = ({ params }: { params: { id: string } }) => {
     }).then((buttonId) => {
       if (buttonId === "delete") {
         playlistsRemovePlaylist({ path: { playlist_id: id } });
+        queryClient.invalidateQueries({ queryKey: [`playlists`] });
         router.push("/playlists");
       }
     });

@@ -50,6 +50,7 @@ const SongItem: React.FC<SongItemProps> = ({
         playlistsRemoveTrackFromPlaylist({
           path: { track_id: id, playlist_id: playlistId },
         });
+        isOpen = false;
       }
     });
   };
