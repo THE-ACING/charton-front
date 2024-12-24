@@ -5,13 +5,14 @@ import Image from "next/image";
 import { MdDelete } from "react-icons/md";
 import { FaPlay } from "react-icons/fa6";
 import { IoIosShareAlt } from "react-icons/io";
-import {playlistsGetPlaylist, playlistsRemovePlaylist} from "@/client";
+import { playlistsGetPlaylist, playlistsRemovePlaylist } from "@/client";
 import { useQuery } from "@tanstack/react-query";
 import PlaylistContent from "@/components/PlaylistContent/PlaylistContent";
-import {useEffect} from "react";
-import {useRouter} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import useOnPlay from "@/hooks/useOnPlay";
-import {openPopup} from "@telegram-apps/sdk-react";
+import { openPopup } from "@telegram-apps/sdk-react";
+import { Skeleton, Spinner } from "@telegram-apps/telegram-ui";
 
 const Playlist = ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -26,8 +27,6 @@ const Playlist = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     refetch();
   }, [refetch]);
-
-
 
   const handlePlaylistDelete = async (id: any) => {
     await openPopup({
@@ -47,11 +46,8 @@ const Playlist = ({ params }: { params: { id: string } }) => {
       ],
     }).then((buttonId) => {
       if (buttonId === "delete") {
-        playlistsRemovePlaylist({ path: { playlist_id: id } }).then((data) => console.log(data));
+        playlistsRemovePlaylist({ path: { playlist_id: id } });
         router.push("/playlists");
-
-
-
       }
     });
   };
@@ -59,24 +55,34 @@ const Playlist = ({ params }: { params: { id: string } }) => {
   const onPlay = useOnPlay(data?.data?.tracks ? data.data.tracks : []);
 
   const tracksIds = data?.data?.tracks.map((track) => track.id);
+  const tracksDuration = Math.floor(
+    data?.data ? data.data.tracks.reduce((a, b) => a + b.duration, 0) / 60 : 0,
+  );
 
   return (
     <Page back={true}>
-      <div className={"px-3 py-5 box flex flex-col gap-y-8 text-color"}>
-        <div className={"flex justify-center items-center flex-col gap-y-2"}>
-          <div
-            className={
-              "p-1.5 border-2 border-[#ddd] bg-[#424242]/[.3] rounded-3xl"
-            }
-          >
-            <Image
-              className={"w-[200px] h-[200px] rounded-3xl"}
-              src={"/images/favBg-4.jpg"}
-              alt={"image"}
-              width={50}
-              height={50}
-            />
-          </div>
+      <div className={"p-3 py-5 box flex flex-col gap-y-8 text-color"}>
+        <div className={"  flex justify-center items-center flex-col gap-y-2"}>
+          <Skeleton visible={isLoading}>
+            <div
+              className={
+                "p-1.5 border-2 border-[#ddd] bg-[#424242]/[.3] rounded-3xl"
+              }
+            >
+              <Image
+                className="w-[200px] h-[200px] rounded-3xl"
+                src={
+                  (data?.data && data.data?.title === "Liked") ||
+                  data?.data?.tracks.length === 0
+                    ? "/images/favBg-4.jpg"
+                    : data?.data?.tracks[0].thumbnail || "/images/default.jpg"
+                }
+                alt="Track Image"
+                width={200}
+                height={200}
+              />
+            </div>
+          </Skeleton>
 
           <h2 className={"text-center text-[1.2rem] font-bold outline-none"}>
             {data?.data && data.data?.title}
@@ -89,12 +95,16 @@ const Playlist = ({ params }: { params: { id: string } }) => {
                 Mixed by <span className={"font-semibold"}>Чекан</span>
               </p>
             </div>
-            <p className={"text-[13px]"}>
+
+            <p className={"text-[16px] font-medium"}>
               {data?.data && data.data?.tracks.length > 0
                 ? data.data?.tracks.length === 1
                   ? `${data?.data.tracks?.length} track`
                   : `${data?.data.tracks?.length} tracks`
                 : "No tracks("}
+            </p>
+            <p className={"text-color text-[13px] mt-1"}>
+              Approximately {tracksDuration}m
             </p>
           </div>
 
@@ -109,7 +119,7 @@ const Playlist = ({ params }: { params: { id: string } }) => {
             </button>
             <button
               className={
-                "p-10 button-color rounded-full outline outline-2 outline-offset-4 outline-color active:scale-95 transition"
+                "p-10 button-color rounded-full active:scale-95 transition"
               }
               onClick={() => onPlay(tracksIds ? tracksIds[0] : "")}
             >
@@ -125,7 +135,15 @@ const Playlist = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
 
-        {data?.data?.tracks && <PlaylistContent songs={data?.data?.tracks} />}
+        {isLoading && (
+          <div className={"flex justify-center"}>
+            <Spinner size="s" />
+          </div>
+        )}
+
+        {data?.data?.tracks && (
+          <PlaylistContent songs={data?.data?.tracks} playlistId={id} />
+        )}
       </div>
     </Page>
   );

@@ -13,7 +13,6 @@ import {
  * Initializes the application and configures its dependencies.
  */
 export function init(debug: boolean, platform: string): void {
-
   // Set @telegram-apps/sdk-react debug mode.
   $debug.set(debug);
 

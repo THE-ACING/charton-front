@@ -7,22 +7,39 @@ import { Page } from "@/components/Page";
 import { openTelegramLink } from "@telegram-apps/sdk-react";
 import { Button } from "@telegram-apps/telegram-ui";
 import { IoPeople } from "react-icons/io5";
+import { useQuery } from "@tanstack/react-query";
+import {userGetReferrals, userSetReferrer} from "@/client";
+import useUserAuth from "@/hooks/useUserAuth";
+import {useEffect, useState} from "react";
 
 const Friends = () => {
+  const user = useUserAuth();
+
+  const [referrals, setReferrals] = useState<string[]>([]);
+  const [referrer, setReferrer] = useState<string | null>(null);
+
   const botUrl = process.env.NEXT_PUBLIC_BOT_URL;
-  const refCode = "123";
+  const refCode = user?.data?.id;
   const refLink =
     botUrl + `/${process.env.NEXT_PUBLIC_BOT_APP_NAME}?startapp=${refCode}`;
   const shareText = `https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=Join my app!`;
 
   const copylink = () => {
     navigator.clipboard.writeText(refLink);
-    toast.success("Copied!");
+    toast.success("Copied!", {
+      id: "clipboard",
+    });
   };
 
   const handleClick = () => {
     openTelegramLink(shareText);
   };
+
+  const { data, isLoading } = useQuery({
+    queryKey: [`friends`],
+    queryFn: async () =>
+      await userGetReferrals({ path: { user_id: user?.data?.id! } }),
+  });
 
   return (
     <Page back={true}>
@@ -71,6 +88,14 @@ const Friends = () => {
         >
           Invite Friends
         </Button>
+
+        <div className={"mt-4 p-3 bg-black"}>
+          {isLoading && <div>Loading...</div>}
+          {data?.data &&
+            data.data.users.map((user) => (
+              <div key={user.id}>{user.username}</div>
+            ))}
+        </div>
       </div>
     </Page>
   );

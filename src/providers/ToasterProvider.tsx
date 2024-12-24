@@ -6,9 +6,18 @@ const ToasterProvider = () => {
   return (
     <Toaster
       toastOptions={{
+        duration: 1000,
         style: {
-          background: "#333",
-          color: "fff",
+          background: "var(--tg-theme-section-bg-color",
+          color: "var(--tg-theme-text-color)",
+          border: "1px solid",
+          borderColor: "var(--tg-theme-section-separator-color)",
+        },
+        success: {
+          iconTheme: {
+            primary: "var(--tg-theme-link-color)",
+            secondary: "var(--tg-theme-text-color)",
+          },
         },
       }}
     />

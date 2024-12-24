@@ -13,7 +13,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({ playlist }) => {
     <Link
       href={`playlists/${playlist.id}`}
       className={
-        "w-full p-3 pr-6 section-bg-color transition rounded-[20px] flex justify-between items-center"
+        "w-full p-3 pr-6 section-bg-color transition rounded-[20px] flex justify-between items-center active:scale-95"
       }
     >
       <div className={"flex gap-x-4"}>

@@ -8,6 +8,7 @@ import {
 import CommunityWidget from "@/components/HomeLayout/CommunityWidget";
 import PlaylistsCarousel from "@/components/HomeLayout/PlaylistsCarousel";
 import SongCard from "@/components/HomeLayout/SongCard";
+import {Spinner} from "@telegram-apps/telegram-ui";
 
 const HomeLayout = () => {
   const initDataUser = useSignal(initData.user);
@@ -147,7 +148,7 @@ const HomeLayout = () => {
             Hey, <span className={"subtitle-text-color"}>Sweetie</span>, wanna
             smth special?
           </div>
-          <h2>Loading...</h2>
+          <Spinner size="s" />
         </div>
       )}
     </div>

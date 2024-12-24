@@ -86,7 +86,14 @@ const Search = () => {
             data?.data?.tracks &&
             data.data.tracks.slice(1).map((track) => (
               <Skeleton key={track.id} visible={isLoading}>
-                <SongItem data={track} onClick={(id: string) => onPlay(id)} />
+                <SongItem
+                  data={track}
+                  onClick={(id: string) => onPlay(id)}
+                  isPlaylist={false}
+                  isOpen={false}
+                  clickHandler={() => {}}
+                  playlistId={""}
+                />
               </Skeleton>
             ))
           ) : (

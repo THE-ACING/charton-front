@@ -6,6 +6,10 @@ export type Author = {
     genres: string;
 };
 
+export type BindReferrerResponse = {
+    success: boolean;
+};
+
 export type CreatePlaylist = {
     title: string;
     thumbnail?: (string | null);
@@ -47,8 +51,18 @@ export type Tracks = {
     tracks: Array<Track>;
 };
 
+export type UpdateUser = {
+    referrer_id: string;
+};
+
 export type User = {
     id: string;
+    username: string;
+    photo_url: string;
+};
+
+export type Users = {
+    users: Array<User>;
 };
 
 export type ValidationError = {
@@ -94,6 +108,16 @@ export type AuthGetInitDataResponse = (User);
 
 export type AuthGetInitDataError = unknown;
 
+export type UserGetUserInfoData = {
+    path: {
+        user_id: string;
+    };
+};
+
+export type UserGetUserInfoResponse = (User);
+
+export type UserGetUserInfoError = (HTTPValidationError);
+
 export type UserGetPlaylistsData = {
     path: {
         user_id: string;
@@ -107,6 +131,24 @@ export type UserGetPlaylistsData = {
 export type UserGetPlaylistsResponse = (Playlists);
 
 export type UserGetPlaylistsError = (HTTPValidationError);
+
+export type UserGetReferralsData = {
+    path: {
+        user_id: string;
+    };
+};
+
+export type UserGetReferralsResponse = (Users);
+
+export type UserGetReferralsError = (HTTPValidationError);
+
+export type UserSetReferrerData = {
+    body: UpdateUser;
+};
+
+export type UserSetReferrerResponse = (BindReferrerResponse);
+
+export type UserSetReferrerError = (HTTPValidationError);
 
 export type PlaylistsCreatePlaylistData = {
     body: CreatePlaylist;

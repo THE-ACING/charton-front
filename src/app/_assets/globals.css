@@ -15,13 +15,17 @@
 
   --safe-area-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
 
+  scroll-behavior: smooth;
 }
 
 html, body{
   touch-action: none;
+
 }
 
 body {
+
+
   background: var(--tg-theme-secondary-bg-color);
   position: relative;
   overflow: hidden;
@@ -201,3 +205,21 @@ body,
   display: none;
 }
 
+.shadow-custom{
+  box-shadow: 0 20px 40px var(--tg-theme-section-bg-color);
+}
+
+.experimental{
+  scroll-snap-align: start;
+}
+
+/*.experiment::after{*/
+/*  content: "";*/
+/*  width: 40%;*/
+/*  height: 100%;*/
+/*  position: absolute;*/
+/*  background: #000;*/
+/*  right: -40%;*/
+/*  top: 0;*/
+
+/*}*/

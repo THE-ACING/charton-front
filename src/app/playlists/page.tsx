@@ -5,7 +5,7 @@ import { FaPlay } from "react-icons/fa6";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { Page } from "@/components/Page";
-import { Button, Modal } from "@telegram-apps/telegram-ui";
+import {Button, Modal, Spinner} from "@telegram-apps/telegram-ui";
 import { ModalHeader } from "@telegram-apps/telegram-ui/dist/components/Overlays/Modal/components/ModalHeader/ModalHeader";
 import {useEffect, useState} from "react";
 import Input from "@/components/Input/Input";
@@ -136,16 +136,16 @@ const Playlists = () => {
             </React.Fragment>
           </Modal>
 
-          {isLoading && <div>Loading...</div>}
+          {isLoading && (
+            <div className={"flex justify-center p-3 items-center"}>
+              <Spinner size="s" />
+            </div>
+          )}
           {data?.data &&
             data.data.playlists.map((playlist) => (
               <PlaylistCard key={playlist.id} playlist={playlist} />
             ))}
         </div>
-        {/*<div className={'relative cursor-pointer p-6 rounded-[20px] button-color font-bold flex items-center justify-center gap-x-2'}>*/}
-        {/*    <p>New Playlist</p>*/}
-        {/*    <FaPlus size={20} className={'text-color'} />*/}
-        {/*</div>*/}
       </div>
     </Page>
   );

@@ -1,8 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import { IoPlaySkipForward } from "react-icons/io5";
 import usePlayer from "@/hooks/usePlayerStore";
 import React, {
   Dispatch,
@@ -13,9 +10,9 @@ import React, {
 } from "react";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { Track } from "@/client";
-import ProgressCompact from "./ProgressCompact";
 import Audio from "./Audio";
 import ExpandedPlayer from "@/components/Player/ExpandedPlayer";
+import CompactPlayer from "@/components/Player/CompactPlayer";
 
 interface PlayerContentProps {
   song: Track;
@@ -44,8 +41,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   const progressRef = useRef<HTMLInputElement | null>(null);
 
   const [audioProgress, setAudioProgress] = useState(0);
-
-  const Icon = isPlaying ? BsPauseFill : BsPlayFill;
 
   const togglePlayPause = () => {
     const prevValue = isPlaying;
@@ -76,18 +71,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
       );
     }
   };
-
-  /////////////////////////////////
-
-  // useEffect(() => {
-  //   if (expand) {
-  //     return backButton.onClick(() => {
-  //       setExpand((prevState) => !prevState);
-  //     });
-  //   }
-  // }, [expand, setExpand]);
-
-  //////////////////////////////////
 
   useEffect(() => {
     handleTimeUpdate();
@@ -172,10 +155,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     setLooped(false);
   };
 
+  console.log("rerender")
+
   return (
     <>
       <div
-        className={`z-[11] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all z-99999` : `${lp?.platform === "ios" ? "bottom-[103px]" : "bottom-[91px]"} right-2 left-2`}`}
+        className={`shadow-xl z-[11] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all z-99999` : `${lp?.platform === "ios" ? "bottom-[103px]" : "bottom-[91px]"} right-2 left-2`}`}
       >
         <div className={`overflow-hidden w-full`}>
           <div
@@ -206,65 +191,14 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
                 shuffled={shuffled}
               />
             ) : (
-              <>
-                <div>
-                  {/*<ProgressCompact refValue={progressRef} />*/}
-                  <ProgressCompact />
-
-                  <div className={"flex items-center justify-between gap-x-2"}>
-                    <div
-                      onClick={() => setExpand(true)}
-                      className={"flex gap-x-2 items-center cursor-pointer p-1"}
-                    >
-                      <div className={"w-[60px] h-[60px] bg-black rounded-3xl"}>
-                        <Image
-                          src={song.thumbnail}
-                          alt={"image"}
-                          width={150}
-                          height={150}
-                          className={"w-full h-full rounded-3xl"}
-                        />
-                      </div>
-
-                      <div className={"max-w-[35vw]"}>
-                        <p
-                          className={
-                            "max-w-[35vw] text-[15px] truncate text-color font-semibold"
-                          }
-                        >
-                          {song.title}
-                        </p>
-                        <p
-                          className={
-                            "subtitle-text-color truncate text-[12px] block"
-                          }
-                        >
-                          {song.authors.map((author) => author.name).join(", ")}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div
-                      className={
-                        "flex flex-row items-center gap-x-1 section-separator-color-border rounded-full p-1"
-                      }
-                    >
-                      <div
-                        onClick={togglePlayPause}
-                        className={`cursor-pointer flex items-center justify-center shadow-xl transition rounded-3xl p-4 border ${!isPlaying ? "button-border button-color" : "bg-transparent section-separator-color-border"}`}
-                      >
-                        <Icon size={24} className={"text-color"} />
-                      </div>
-                      <div
-                        onClick={onPlayNext}
-                        className={`shadow-xl flex items-center justify-center transition rounded-3xl cursor-pointer p-5 border section-separator-color-border`}
-                      >
-                        <IoPlaySkipForward size={16} className={"text-color"} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
+              <CompactPlayer
+                isPlaying={isPlaying}
+                setExpand={setExpand}
+                song={song}
+                togglePlayPause={togglePlayPause}
+                onPlayNext={onPlayNext}
+                progressRef={progressRef}
+              />
             )}
 
             <Audio

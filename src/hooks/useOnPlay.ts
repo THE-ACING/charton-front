@@ -1,7 +1,7 @@
 import usePlayer from "./usePlayerStore";
 import { Track } from "@/client";
 
-const useOnPlay = (songs: Track[]) => {
+const useOnPlay = (songs: Array<Track> | undefined) => {
   const player = usePlayer();
   const onPlay = (id: string) => {
     // if (!user) {
@@ -9,7 +9,10 @@ const useOnPlay = (songs: Track[]) => {
     // }
 
     player.setId(id);
-    player.setIds(songs.map((song) => song.id));
+    if (songs) {
+      player.setIds(songs?.map((song) => song.id));
+    }
+
   };
 
   return onPlay;
