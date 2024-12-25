@@ -53,7 +53,8 @@ const SongItem: React.FC<SongItemProps> = ({
         playlistsRemoveTrackFromPlaylist({
           path: { track_id: id, playlist_id: playlistId },
         });
-        queryClient.invalidateQueries({ queryKey: [`playlists`] });
+        queryClient.invalidateQueries({ queryKey: ["playlists"] });
+        queryClient.refetchQueries({ queryKey: ["playlists"] });
         isOpen = false;
       }
     });
