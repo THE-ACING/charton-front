@@ -11,6 +11,7 @@ import { TiDelete } from "react-icons/ti";
 import formatTime from "@/lib/formatTime";
 import {useEffect} from "react";
 import {openPopup} from "@telegram-apps/sdk-react";
+import {useQueryClient} from "@tanstack/react-query";
 
 interface SongItemProps {
   data: Track[] | any;
@@ -29,6 +30,8 @@ const SongItem: React.FC<SongItemProps> = ({
   clickHandler,
   playlistId,
 }) => {
+  const queryClient = useQueryClient();
+
   const handleDeleteSong = async (id: any) => {
     await openPopup({
       title: `Delete song ${data.title}?`,
@@ -50,6 +53,7 @@ const SongItem: React.FC<SongItemProps> = ({
         playlistsRemoveTrackFromPlaylist({
           path: { track_id: id, playlist_id: playlistId },
         });
+        queryClient.invalidateQueries({ queryKey: [`playlists`] });
         isOpen = false;
       }
     });

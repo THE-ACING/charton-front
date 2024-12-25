@@ -5,12 +5,13 @@ import toast from "react-hot-toast";
 import { FiClipboard } from "react-icons/fi";
 import { Page } from "@/components/Page";
 import { openTelegramLink } from "@telegram-apps/sdk-react";
-import { Button } from "@telegram-apps/telegram-ui";
+import {Button, Divider} from "@telegram-apps/telegram-ui";
 import { IoPeople } from "react-icons/io5";
 import { useQuery } from "@tanstack/react-query";
 import {userGetReferrals, userSetReferrer} from "@/client";
 import useUserAuth from "@/hooks/useUserAuth";
 import {useEffect, useState} from "react";
+import ReferralCard from "@/components/ReferralCard/ReferralCard";
 
 const Friends = () => {
   const user = useUserAuth();
@@ -36,9 +37,10 @@ const Friends = () => {
   };
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: [`friends`],
+    queryKey: [`friends`, user?.data?.id],
     queryFn: async () =>
       await userGetReferrals({ path: { user_id: user?.data?.id! } }),
+    enabled: !!user?.data?.id,
   });
 
   useEffect(() => {
@@ -93,11 +95,20 @@ const Friends = () => {
           Invite Friends
         </Button>
 
-        <div className={"mt-4 p-3 bg-black"}>
+        <h2 className={"text-[18px] font-semibold mt-4 text-color"}>
+          Your Gang
+        </h2>
+
+        <div className={"mt-1 px-4 section-bg-color rounded-xl"}>
           {isLoading && <div>Loading...</div>}
           {data?.data &&
             data.data.users.map((user) => (
-              <div key={user.id}>{user.username}</div>
+              <ReferralCard
+                key={user.id}
+                name={user.username}
+                image={user.photo_url}
+                length={data.data.users.length}
+              />
             ))}
         </div>
       </div>
