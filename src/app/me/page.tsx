@@ -55,7 +55,7 @@ const Profile = () => {
         <div className={"flex flex-col gap-y-1"}>
           <div className={"flex justify-center items-center"}>
 
-              <Skeleton visible
+              <Skeleton visible={false}
                 className={
                   "min-w-[103px] grow flex flex-col justify-center items-center p-3 rounded-2xl section-bg-color"
                 }
@@ -66,7 +66,7 @@ const Profile = () => {
                 <p className={"font-bold leading-5 text-color"}>200h</p>
               </Skeleton>
 
-              <Skeleton visible
+              <Skeleton visible={false}
                 className={
                   "grow flex flex-col justify-center items-center px-2 py-3 rounded-2xl section-bg-color"
                 }
@@ -77,7 +77,7 @@ const Profile = () => {
                 <p className={"font-bold leading-5 text-color"}>PRO</p>
               </Skeleton>
 
-              <Skeleton visible
+              <Skeleton visible={false}
                 className={
                   " min-w-[103px] grow flex flex-col justify-center items-center p-3 rounded-2xl section-bg-color"
                 }
@@ -90,7 +90,7 @@ const Profile = () => {
           </div>
           <h2 className={"text-[20px] font-semibold mt-2"}>Leaderboard</h2>
 
-          <Skeleton visible>
+          <Skeleton visible={false}>
             <div className={"section-bg-color rounded-2xl p-4 text-center"}>
               <h2 className={"text-[16px] font-semibold "}>Rank #1</h2>
               <p className={"text-[14px] subtitle-text-color mb-4"}>
@@ -107,7 +107,7 @@ const Profile = () => {
 
           <h2 className={"text-[20px] font-semibold mt-2"}>Airdrop</h2>
 
-          <Skeleton visible>
+          <Skeleton visible={false}>
             <div className={"section-bg-color rounded-2xl p-4 "}>
               <div className={"flex justify-between items-center mb-3"}>
                 <div>
@@ -131,7 +131,7 @@ const Profile = () => {
             Activities{" "}
           </h2>
 
-            <Skeleton visible className={"section-bg-color rounded-2xl px-4"}>
+            <Skeleton visible={false} className={"section-bg-color rounded-2xl px-4"}>
               <div className={"flex items-center justify-between py-4"}>
                 <div className={"flex items-center gap-x-2"}>
                   <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
