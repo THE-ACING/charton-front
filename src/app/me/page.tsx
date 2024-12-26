@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Page } from "@/components/Page";
-import {initData, parseInitData, useSignal} from "@telegram-apps/sdk-react";
-import {Button, Divider, Skeleton} from "@telegram-apps/telegram-ui";
+import { initData, parseInitData, useSignal } from "@telegram-apps/sdk-react";
+import { Button, Divider, Skeleton } from "@telegram-apps/telegram-ui";
 
 const Profile = () => {
   const initDataRaw = useSignal(initData.raw);
@@ -23,7 +23,7 @@ const Profile = () => {
         <div className={"flex flex-col justify-center items-center gap-y-1 "}>
           <div
             className={
-              "p-1.5 border-2 border-[#ddd] bg-[#424242]/[.3] rounded-3xl "
+              "p-1.5 border-2 section-separator-color-border section-bg-color rounded-3xl "
             }
           >
             <Image
@@ -54,41 +54,46 @@ const Profile = () => {
 
         <div className={"flex flex-col gap-y-1"}>
           <div className={"flex justify-center items-center"}>
+            <Skeleton
+              visible={false}
+              className={
+                "min-w-[103px] grow flex flex-col justify-center items-center p-3 rounded-2xl section-bg-color"
+              }
+            >
+              <h3 className={"text-[13px] subtitle-text-color leading-5"}>
+                Total
+              </h3>
+              <p className={"font-bold leading-5 text-color"}>200h</p>
+            </Skeleton>
 
-              <Skeleton visible={false}
-                className={
-                  "min-w-[103px] grow flex flex-col justify-center items-center p-3 rounded-2xl section-bg-color"
-                }
-              >
-                <h3 className={"text-[13px] subtitle-text-color leading-5"}>
-                  Total
-                </h3>
-                <p className={"font-bold leading-5 text-color"}>200h</p>
-              </Skeleton>
+            <Skeleton
+              visible={false}
+              className={
+                "grow flex flex-col justify-center items-center px-2 py-3 rounded-2xl section-bg-color"
+              }
+            >
+              <h3 className={"text-[13px] subtitle-text-color leading-5"}>
+                Subscription
+              </h3>
+              <p className={"font-bold leading-5 text-color"}>PRO</p>
+            </Skeleton>
 
-              <Skeleton visible={false}
-                className={
-                  "grow flex flex-col justify-center items-center px-2 py-3 rounded-2xl section-bg-color"
-                }
-              >
-                <h3 className={"text-[13px] subtitle-text-color leading-5"}>
-                  Subscription
-                </h3>
-                <p className={"font-bold leading-5 text-color"}>PRO</p>
-              </Skeleton>
-
-              <Skeleton visible={false}
-                className={
-                  " min-w-[103px] grow flex flex-col justify-center items-center p-3 rounded-2xl section-bg-color"
-                }
-              >
-                <h3 className={"text-[13px] subtitle-text-color leading-5"}>
-                  Friends
-                </h3>
-                <p className={"font-bold leading-5 text-color"}>134</p>
-              </Skeleton>
+            <Skeleton
+              visible={false}
+              className={
+                " min-w-[103px] grow flex flex-col justify-center items-center p-3 rounded-2xl section-bg-color"
+              }
+            >
+              <h3 className={"text-[13px] subtitle-text-color leading-5"}>
+                Friends
+              </h3>
+              <p className={"font-bold leading-5 text-color"}>134</p>
+            </Skeleton>
           </div>
-          <h2 className={"text-[20px] font-semibold mt-2"}>Leaderboard</h2>
+
+          <h2 className={"text-[16px] font-semibold mt-2 text-color"}>
+            Leaderboard
+          </h2>
 
           <Skeleton visible={false}>
             <div className={"section-bg-color rounded-2xl p-4 text-center"}>
@@ -105,7 +110,9 @@ const Profile = () => {
             </div>
           </Skeleton>
 
-          <h2 className={"text-[20px] font-semibold mt-2"}>Airdrop</h2>
+          <h2 className={"text-[16px] font-semibold mt-2 text-color"}>
+            Airdrop
+          </h2>
 
           <Skeleton visible={false}>
             <div className={"section-bg-color rounded-2xl p-4 "}>
@@ -127,79 +134,86 @@ const Profile = () => {
             </div>
           </Skeleton>
 
-          <h2 className={"text-[22px] font-bold mt-1 text-color"}>
-            Activities{" "}
+          <h2 className={"text-[16px] font-semibold mt-2 text-color"}>
+            Activities
           </h2>
 
-            <Skeleton visible={false} className={"section-bg-color rounded-2xl px-4"}>
-              <div className={"flex items-center justify-between py-4"}>
-                <div className={"flex items-center gap-x-2"}>
-                  <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
-                  <div className={"flex flex-col"}>
-                    <h3 className={"font-semibold text-[16px]"}>
-                      Charton Community
-                    </h3>
-                    <p className={"font-thin text-[14px]"}>1 Day Premium</p>
-                  </div>
-                </div>
-                <div
-                  className={"link-color py-2 px-4 rounded-full font-medium"}
-                >
-                  Open
+          <Skeleton
+            visible={false}
+            className={"section-bg-color rounded-2xl px-4"}
+          >
+            <div className={"flex items-center justify-between py-4"}>
+              <div className={"flex items-center gap-x-2"}>
+                <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
+                <div className={"flex flex-col"}>
+                  <h3 className={"font-semibold text-[16px]"}>
+                    Charton Community
+                  </h3>
+                  <p className={"font-thin text-[14px]"}>1 Day Premium</p>
                 </div>
               </div>
-              <Divider />
-              <div className={"flex items-center justify-between py-4"}>
-                <div className={"flex items-center gap-x-2"}>
-                  <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
-                  <div className={"flex flex-col"}>
-                    <h3 className={"font-semibold text-[16px]"}>
-                      Guide to Charton
-                    </h3>
-                    <p className={"font-thin text-[14px]"}>+100</p>
-                  </div>
-                </div>
-                <div
-                  className={"link-color py-2 px-4 rounded-full font-medium"}
-                >
-                  Open
+              <div
+                className={
+                  "link-color py-2 px-4 rounded-full font-medium cursor-pointer"
+                }
+              >
+                Open
+              </div>
+            </div>
+            <Divider />
+            <div className={"flex items-center justify-between py-4"}>
+              <div className={"flex items-center gap-x-2"}>
+                <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
+                <div className={"flex flex-col"}>
+                  <h3 className={"font-semibold text-[16px]"}>
+                    Guide to Charton
+                  </h3>
+                  <p className={"font-thin text-[14px]"}>+100</p>
                 </div>
               </div>
-              <Divider />
-              <div className={"flex items-center justify-between py-4"}>
-                <div className={"flex items-center gap-x-2"}>
-                  <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
-                  <div className={"flex flex-col"}>
-                    <h3 className={"font-semibold text-[16px]"}>
-                      First Transaction
-                    </h3>
-                    <p className={"font-thin text-[14px]"}>+500</p>
-                  </div>
-                </div>
-                <div
-                  className={"link-color py-2 px-4 rounded-full font-medium"}
-                >
-                  Open
+              <div
+                className={
+                  "link-color py-2 px-4 rounded-full font-medium cursor-pointer"
+                }
+              >
+                Open
+              </div>
+            </div>
+            <Divider />
+            <div className={"flex items-center justify-between py-4"}>
+              <div className={"flex items-center gap-x-2"}>
+                <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
+                <div className={"flex flex-col"}>
+                  <h3 className={"font-semibold text-[16px]"}>
+                    First Transaction
+                  </h3>
+                  <p className={"font-thin text-[14px]"}>+500</p>
                 </div>
               </div>
-              <Divider />
-              <div className={"flex items-center justify-between py-4"}>
-                <div className={"flex items-center gap-x-2"}>
-                  <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
-                  <div className={"flex flex-col"}>
-                    <h3 className={"font-semibold text-[16px]"}>
-                      Charton Instagram
-                    </h3>
-                    <p className={"font-thin text-[14px]"}>+300</p>
-                  </div>
-                </div>
-                <div
-                  className={"link-color py-2 px-4 rounded-full font-medium"}
-                >
-                  Open
+              <div
+                className={
+                  "link-color py-2 px-4 rounded-full font-medium cursor-pointer"
+                }
+              >
+                Open
+              </div>
+            </div>
+            <Divider />
+            <div className={"flex items-center justify-between py-4"}>
+              <div className={"flex items-center gap-x-2"}>
+                <div className={"w-12 h-12 bg-black rounded-3xl"}></div>
+                <div className={"flex flex-col"}>
+                  <h3 className={"font-semibold text-[16px]"}>
+                    Charton Instagram
+                  </h3>
+                  <p className={"font-thin text-[14px]"}>+300</p>
                 </div>
               </div>
-            </Skeleton>
+              <div className={"link-color py-2 px-4 rounded-full font-medium cursor-pointer"}>
+                Open
+              </div>
+            </div>
+          </Skeleton>
         </div>
       </div>
     </Page>

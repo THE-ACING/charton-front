@@ -73,7 +73,9 @@ const Search = () => {
         <div>
           {!!data?.data?.tracks.length && (
             <>
-              <h2 className={"font-semibold text-[18px] mb-1"}>Best Result</h2>
+              <h2 className={"text-[16px] font-semibold mb-1 text-color"}>
+                Best results
+              </h2>
               <Skeleton visible={isLoading}>
                 <FirstSong
                   data={data.data.tracks[0]}
@@ -98,7 +100,7 @@ const Search = () => {
             ))
           ) : (
             <>
-              <h2 className={"font-medium text-[18px] mb-1"}>
+              <h2 className={"text-[16px] font-semibold mb-1 text-color"}>
                 Based on your tastes
               </h2>
 

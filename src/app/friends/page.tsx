@@ -95,7 +95,7 @@ const Friends = () => {
           Invite Friends
         </Button>
 
-        <h2 className={"text-[18px] font-semibold mt-4 text-color"}>
+        <h2 className={"text-[16px] font-semibold mt-4 text-color"}>
           Your Gang
         </h2>
 

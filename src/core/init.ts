@@ -28,6 +28,8 @@ export function init(debug: boolean, platform: string): void {
   themeParams.mount();
   initData.restore();
 
+  miniApp.lockOrientation();
+
   // void viewport.mount().catch((e) => {
   //   console.error("Something went wrong mounting the viewport", e);
   // });
@@ -41,6 +43,7 @@ export function init(debug: boolean, platform: string): void {
       (platform === "ios" || platform === "android")
     ) {
       viewport.requestFullscreen();
+      viewport.lockOrientation();
     }
     viewport.bindCssVars();
   });

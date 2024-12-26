@@ -160,11 +160,11 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   return (
     <>
       <div
-        className={`shadow-xl z-[11] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all z-99999` : `${lp?.platform === "ios" ? "bottom-[103px]" : "bottom-[91px]"} right-2 left-2`}`}
+        className={`z-[11] absolute flex justify-between  overflow-hidden ${expand ? `m-0 top-0 w-full h-full transition-all z-99999` : `${lp?.platform === "ios" ? "bottom-[103px]" : "bottom-[91px]"} right-2 left-2`}`}
       >
         <div className={`overflow-hidden w-full`}>
           <div
-            className={`border-b border-x relative w-full  section-separator-color-border shadow overflow-hidden transition-all ${expand ? `h-full rounded-none  secondary-bg-color p-3 pb-0 border-none ${lp?.platform === "ios" ? "pb-5" : "pb-2"}` : "section-bg-color rounded-3xl p-1"}`}
+            className={`border-b border-x relative w-full  section-separator-color-border shadow overflow-hidden transition-all ${expand ? `h-full rounded-none  secondary-bg-color p-3 pb-0 border-none ${lp?.platform === "ios" ? "pb-5" : "pb-2"}` : "section-bg-color rounded-3xl shadow-xl p-1"}`}
           >
             {expand ? (
               <ExpandedPlayer
