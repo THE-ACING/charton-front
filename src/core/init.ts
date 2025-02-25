@@ -7,6 +7,7 @@ import {
   $debug,
   init as initSDK,
   expandViewport,
+  postEvent,
 } from "@telegram-apps/sdk-react";
 
 /**
@@ -28,13 +29,13 @@ export function init(debug: boolean, platform: string): void {
   themeParams.mount();
   initData.restore();
 
-  miniApp.lockOrientation();
-
   // void viewport.mount().catch((e) => {
   //   console.error("Something went wrong mounting the viewport", e);
   // });
 
   expandViewport();
+
+  // window.TelegramWebviewProxy.postEvent("is_orientation_locked", true);
 
   // Define components-related CSS variables.
   viewport.mount().then(() => {
@@ -43,7 +44,6 @@ export function init(debug: boolean, platform: string): void {
       (platform === "ios" || platform === "android")
     ) {
       viewport.requestFullscreen();
-      viewport.lockOrientation();
     }
     viewport.bindCssVars();
   });

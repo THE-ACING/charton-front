@@ -7,18 +7,12 @@ import {
   retrieveLaunchParams,
 } from "@telegram-apps/sdk-react";
 
-/**
- * Mocks Telegram environment in development mode.
- */
 export function useTelegramMock(): void {
   useClientOnce(() => {
     if (!sessionStorage.getItem("env-mocked") && isTMA("simple")) {
       return;
     }
 
-    // Determine which launch params should be applied. We could already
-    // apply them previously, or they may be specified on purpose using the
-    // default launch parameters transmission method.
     let lp: LaunchParams | undefined;
     try {
       lp = retrieveLaunchParams();

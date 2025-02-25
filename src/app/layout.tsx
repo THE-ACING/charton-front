@@ -11,7 +11,7 @@ import "./_assets/globals.css";
 import NavigationBar from "@/components/NavigationBar";
 import Content from "@/components/Content";
 import Player from "@/components/Player/Player";
-import React, {useEffect} from "react";
+import React from "react";
 import Providers from "@/app/providers";
 import Head from "next/head";
 
@@ -20,14 +20,8 @@ export const metadata: Metadata = {
   description: "New Age Music App just in Telegram",
 };
 
-
-
 export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
-
-
-
-
 
   return (
     <html lang={locale}>
@@ -41,7 +35,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
         />
       </Head>
       <body>

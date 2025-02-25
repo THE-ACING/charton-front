@@ -21,7 +21,6 @@ const Audio: React.FC<AudioProps> = ({
   looped,
   preload,
 }) => {
-  console.log("audio");
 
   return (
     <audio

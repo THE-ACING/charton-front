@@ -149,13 +149,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   const handleShuffle = () => {
     if (!shuffled) {
       player.shuffle();
-      console.log(player.ids);
     }
     setShuffled(!shuffled);
     setLooped(false);
   };
-
-  console.log("rerender")
 
   return (
     <>

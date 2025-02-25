@@ -13,8 +13,6 @@ const Profile = () => {
     ? initDataUser.photoUrl
     : "/images/favBg-4.jpg";
 
-  console.log(parseInitData(initDataRaw));
-
   return (
     <Page back={true}>
       <div

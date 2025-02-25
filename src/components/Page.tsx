@@ -1,9 +1,14 @@
 "use client";
 
-import {backButton, initData, requestFullscreen, useLaunchParams, useSignal, viewport} from "@telegram-apps/sdk-react";
+import {
+  backButton,
+  initData,
+  useLaunchParams,
+  useSignal,
+} from "@telegram-apps/sdk-react";
 import { PropsWithChildren, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import {client} from "@/client";
+import { client } from "@/client";
 
 export function Page({
   children,
@@ -33,7 +38,6 @@ export function Page({
   }, [router]);
 
   useEffect(() => {
-
     document.body.addEventListener(
       "dblclick",
       function (event) {
