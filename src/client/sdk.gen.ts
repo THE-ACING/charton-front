@@ -134,7 +134,7 @@ export const userGetUserInfo = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     ...options,
-    url: "/user/{user_id}",
+    url: "/users/{user_id}",
   });
 };
 
@@ -150,7 +150,7 @@ export const userGetPlaylists = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     ...options,
-    url: "/user/{user_id}/playlists",
+    url: "/users/{user_id}/playlists",
   });
 };
 
@@ -166,7 +166,7 @@ export const userGetReferrals = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     ...options,
-    url: "/user/{user_id}/referrals",
+    url: "/users/{user_id}/referrals",
   });
 };
 
@@ -182,7 +182,7 @@ export const userSetReferrer = <ThrowOnError extends boolean = false>(
     ThrowOnError
   >({
     ...options,
-    url: "/user/me",
+    url: "/users/me",
   });
 };
 
