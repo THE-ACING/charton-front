@@ -37,7 +37,7 @@ ENV NEXT_PUBLIC_BOT_APP_NAME=$NEXT_PUBLIC_BOT_APP_NAME
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
   elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable && corepack prepare pnpm@9.15.0 --activate && pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
