@@ -1,0 +1,154 @@
+"use client";
+
+import { Page } from "@/components/Page";
+import Image from "next/image";
+import { MdDelete } from "react-icons/md";
+import { FaPlay } from "react-icons/fa6";
+import { IoIosShareAlt } from "react-icons/io";
+import { playlistsGetPlaylist, playlistsRemovePlaylist } from "@/client";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
+import PlaylistContent from "@/components/PlaylistContent/PlaylistContent";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import useOnPlay from "@/hooks/useOnPlay";
+import { openPopup } from "@telegram-apps/sdk-react";
+import { Skeleton, Spinner } from "@telegram-apps/telegram-ui";
+
+const Playlist = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: [`playlists`, id],
+    queryFn: async () => playlistsGetPlaylist({ path: { playlist_id: id } }),
+    enabled: !!id,
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const handlePlaylistDelete = async (id: any) => {
+    await openPopup({
+      title: "Delete playlist",
+      message: "Are you sure?",
+      buttons: [
+        {
+          id: "delete",
+          type: "destructive",
+          text: "Delete",
+        },
+        {
+          id: "cancel",
+          type: "default",
+          text: "Back",
+        },
+      ],
+    }).then((buttonId) => {
+      if (buttonId === "delete") {
+        playlistsRemovePlaylist({ path: { playlist_id: id } });
+        queryClient.invalidateQueries({ queryKey: [`playlists`] });
+        router.push("/playlists");
+      }
+    });
+  };
+
+  const onPlay = useOnPlay(data?.data?.tracks ? data.data.tracks : []);
+
+  const tracksIds = data?.data?.tracks.map((track) => track.id);
+  const tracksDuration = Math.floor(
+    data?.data ? data.data.tracks.reduce((a, b) => a + b.duration, 0) / 60 : 0,
+  );
+
+  return (
+    <Page back={true}>
+      <div className={"p-3 py-5 box flex flex-col gap-y-8 text-color"}>
+        <div className={"  flex justify-center items-center flex-col gap-y-2"}>
+          <Skeleton visible={isLoading}>
+            <div
+              className={
+                "p-1.5 border-2 border-[#ddd] bg-[#424242]/[.3] rounded-3xl"
+              }
+            >
+              <Image
+                className="w-[200px] h-[200px] rounded-3xl"
+                src={
+                  (data?.data && data.data?.title === "Liked") ||
+                  data?.data?.tracks.length === 0
+                    ? "/images/favBg-4.jpg"
+                    : data?.data?.tracks[0].thumbnail || "/images/default.jpg"
+                }
+                alt="Track Image"
+                width={200}
+                height={200}
+              />
+            </div>
+          </Skeleton>
+
+          <h2 className={"text-center text-[1.2rem] font-bold outline-none"}>
+            {data?.data && data.data?.title}
+          </h2>
+
+          <div className={"flex flex-col items-center mb-4"}>
+            <div className={"flex gap-x-2 items-center"}>
+              <div className={"w-8 h-8 rounded-full bg-neutral-900"}></div>
+              <p className={"text-[14px]"}>
+                Mixed by <span className={"font-semibold"}>Чекан</span>
+              </p>
+            </div>
+
+            <p className={"text-[16px] font-medium"}>
+              {data?.data && data.data?.tracks.length > 0
+                ? data.data?.tracks.length === 1
+                  ? `${data?.data.tracks?.length} track`
+                  : `${data?.data.tracks?.length} tracks`
+                : "No tracks("}
+            </p>
+            <p className={"text-color text-[13px] mt-1"}>
+              Approximately {tracksDuration}m
+            </p>
+          </div>
+
+          <div className={"flex items-center gap-x-5"}>
+            <button
+              onClick={() => handlePlaylistDelete(id)}
+              className={
+                "w-[50px] h-[50px] section-bg-color rounded-full flex items-center justify-center"
+              }
+            >
+              <MdDelete size={20} />
+            </button>
+            <button
+              className={
+                "p-10 button-color rounded-full active:scale-95 transition"
+              }
+              onClick={() => onPlay(tracksIds ? tracksIds[0] : "")}
+            >
+              <FaPlay size={30} className={""} />
+            </button>
+            <button
+              className={
+                "w-[50px] h-[50px] section-bg-color rounded-full flex items-center justify-center"
+              }
+            >
+              <IoIosShareAlt size={20} />
+            </button>
+          </div>
+        </div>
+
+        {isLoading && (
+          <div className={"flex justify-center"}>
+            <Spinner size="s" />
+          </div>
+        )}
+
+        {data?.data?.tracks && (
+          <PlaylistContent songs={data?.data?.tracks} playlistId={id} />
+        )}
+      </div>
+    </Page>
+  );
+};
+
+export default Playlist;
